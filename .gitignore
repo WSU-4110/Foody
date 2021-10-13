@@ -1,2 +1,8 @@
+# Node modules folder 
 /node_modules
+
+# Configuration files 
 src/components/config/config.js
+
+# VSCode
+.vscode
