@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import Footer from './Footer'
+import {useMediaQuery} from 'react-responsive'
 
 const Register = ({background}) => {
 
@@ -12,6 +13,10 @@ const Register = ({background}) => {
     const[invalidUsername, setInvalidUsername] = useState(false);
     const[accountCreated, setAccountCreated] = useState(false);
     const history = useHistory()
+
+    const LaptopScreen = useMediaQuery({
+        query: '(max-width: 1280px)'
+      })
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -110,7 +115,9 @@ const Register = ({background}) => {
                 </div> }
 
 
-                {/* <Footer />  */}
+                <div className="">
+                    {LaptopScreen ?  <div></div> : <Footer />} 
+                </div>
         
             </div>
         </div>

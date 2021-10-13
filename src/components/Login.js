@@ -86,11 +86,15 @@ const Login = ({background}) => {
                     </div>
                 </div>
         
-                <div className="footer-homepage">
-                    {LaptopScreen ?  <div></div> : <Footer />} 
-                </div>
+              
            
             </div>
+
+
+            <div className="">
+                    {LaptopScreen ?  <div></div> : <Footer />} 
+            </div>
+            
 
         </div>
     )
