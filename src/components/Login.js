@@ -5,32 +5,16 @@ import { useHistory } from 'react-router'
 import Footer from './Footer';
 import {useMediaQuery} from 'react-responsive'
 
-const Login = () => {
+const Login = ({background}) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [userLoggedIn, setUserLoggedIn] = useState(true);
-    const [randomBackground, setRandomBackground] = useState('')
     const history = useHistory()
 
     const LaptopScreen = useMediaQuery({
         query: '(max-width: 1280px)'
       })
-
-      const backgroundImageClass = ['login-background-1', 'login-background-2', 'login-background-3']
-
-      useEffect(() => {
-   
-        getRandomBackground(backgroundImageClass)
-        
-       
-    }, [])
-
-
-    const getRandomBackground = (backgroundImageClass) => {
-        const randomBackground = backgroundImageClass[Math.floor(Math.random()*backgroundImageClass.length)]
-        setRandomBackground(randomBackground)
-    }
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -79,7 +63,7 @@ const Login = () => {
 
 
     return (
-        <div className={randomBackground}>
+        <div className={background}>
             <div className="login-container">
                 <h1><i class='bx bxs-pizza'></i> Foody</h1>
 

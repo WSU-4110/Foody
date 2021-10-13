@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useHistory } from 'react-router'
 import Footer from './Footer'
 
-const Register = () => {
+const Register = ({background}) => {
 
     const[email, setEmail] = useState('')
     const[username, setUsername] = useState('')
@@ -74,45 +74,46 @@ const Register = () => {
 
 
     return (
-        <div className="register-container">
+        <div className={background}>
+            <div className="register-container">
 
-            <div className="back-arrow">
-                <Link to="/" style={{textDecoration: 'none'}}>
-                      <a href="#"><i class='bx bxs-left-arrow-circle'></i></a>
-                 </Link>
+                <div className="back-arrow">
+                    <Link to="/" style={{textDecoration: 'none'}}>
+                        <a href="#"><i class='bx bxs-left-arrow-circle'></i></a>
+                    </Link>
+                </div>
+
+
+                {accountCreated ? <h2>Your account was created!</h2> : <h2>Register an account here!</h2>}
+
+                {accountCreated ? <div className="successful-register"><label>Click here to sign in!</label> <Link to="/" ><button className="register-form-submit-button"> Sign in!</button></Link></div>
+                : <div>
+                    <form className="" onSubmit={onSubmit}>
+                        <div className="register-form">
+                            <label> Enter an email address </label>
+                            <input className="register-form-text-input" type="text" placeholder="Email" value={email} onChange={((e) => setEmail(e.target.value))}></input>
+
+                            <label> Enter a username </label>
+                            {invalidUsername ? <label className="invalid">Error: Username is already in use with another account. Try a different username!</label> : <label></label>}
+                            <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
+
+
+                            <label> Enter a password </label>
+                            <input className="register-form-text-input" type="text" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
+
+
+                            <input className="register-form-submit-button" type="submit" placeholder="Login"></input>
+                        </div>
+                    </form>
+
+                
+                </div> }
+
+
+                {/* <Footer />  */}
+        
             </div>
-
-
-            {accountCreated ? <h2>Your account was created!</h2> : <h2>Register an account here!</h2>}
-
-            {accountCreated ? <div className="successful-register"><label>Click here to sign in!</label> <Link to="/" ><button className="register-form-submit-button"> Sign in!</button></Link></div>
-            : <div>
-                <form className="" onSubmit={onSubmit}>
-                    <div className="register-form">
-                        <label> Enter an email address </label>
-                        <input className="register-form-text-input" type="text" placeholder="Email" value={email} onChange={((e) => setEmail(e.target.value))}></input>
-
-                        <label> Enter a username </label>
-                        {invalidUsername ? <label className="invalid">Error: Username is already in use with another account. Try a different username!</label> : <label></label>}
-                        <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
-
-
-                        <label> Enter a password </label>
-                        <input className="register-form-text-input" type="text" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
-
-
-                        <input className="register-form-submit-button" type="submit" placeholder="Login"></input>
-                    </div>
-                </form>
-
-            
-            </div> }
-
-
-             {/* <Footer />  */}
-      
         </div>
-
 
     )
 }
