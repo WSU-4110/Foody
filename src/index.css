@@ -379,3 +379,13 @@ border-radius: 1rem;
   left: 0;
   z-index: 0;
 }
+
+.profile-page-main-container {
+  padding-top: 6rem;
+}
+
+img.profile-pic{
+  height: 400px;
+  float: left;
+  padding: 2rem;
+}
