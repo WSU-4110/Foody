@@ -5,6 +5,7 @@ import Register from './components/Register';
 import {Route, Link} from 'react-router-dom'
 import { useState } from 'react';
 import HomePage from './components/HomePage';
+import ProfilePage from './components/ProfilePage';
 import {useEffect} from 'react';
 
 function App() {
@@ -33,6 +34,7 @@ useEffect(() => {
         <Route exact path="/components/Register.js" component={() => <Register background={randomBackground} />} />
         <Route exact path="/components/HomePage.js" component={HomePage} />
         <Route exact path="/components/Footer.js" component={Footer} />
+        <Route exact path="/components/ProfilePage.js" component={ProfilePage} />
 
         {/* <Login /> */}
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
 
@@ -25,7 +26,6 @@ const Navigation = () => {
 
     }
 
-
     return (
         <div>
             <nav className="navbar">
@@ -33,7 +33,7 @@ const Navigation = () => {
             <h2 className="navbar-logo"><i class='bx bxs-pizza'></i> Foody</h2>
                 <ul className="navbar-list">
                     <li className="navbar-links">
-                        Profile
+                        <Link to="/components/ProfilePage.js">Profile</Link>
                     </li>
             
                     <li className="navbar-links">
