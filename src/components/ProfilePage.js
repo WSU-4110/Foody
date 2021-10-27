@@ -10,9 +10,10 @@ const ProfilePage = () => {
             <Navigation />
 
             <div className="profile-page-main-container">
-                <h2 className="profile-pic"><i class='bx bxs-pizza'></i> Foody</h2>
+                
+                <h2>FirstName LastName</h2>
 
-                <img src="/images/profile-default.svg" alt=""/>
+                <img className="profile-pic" src="/images/profile-default.svg" alt=""/>
             </div>
            
             <div className="footer-profilepage">

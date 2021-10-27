@@ -421,3 +421,13 @@ input[name='pricingValue']  {
   z-index: 0;
   text-align: left;
 }
+
+.profile-page-main-container {
+  padding-top: 6rem;
+}
+
+img.profile-pic{
+  height: 400px;
+  float: left;
+  padding: 2rem;
+}
