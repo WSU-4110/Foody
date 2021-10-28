@@ -30,7 +30,7 @@ const Navigation = () => {
         <div>
             <nav className="navbar">
 
-            <h2 className="navbar-logo"><i class='bx bxs-pizza'></i> Foody</h2>
+            <h2 className="navbar-logo"><Link to="/components/HomePage.js"><i class='bx bxs-pizza'></i> Foody</Link></h2>
                 <ul className="navbar-list">
                     <li className="navbar-links">
                         <Link to="/components/ProfilePage.js">Profile</Link>
