@@ -14,7 +14,7 @@ const Navigation = () => {
         }
 
         logOutUserRequest(logOutUser)
-   
+
     }
 
 
@@ -35,9 +35,9 @@ const Navigation = () => {
                     <li className="navbar-links">
                         Profile
                     </li>
-            
+
                     <li className="navbar-links">
-                        Post a review! 
+                        Post a review!
                     </li>
                 </ul>
 
@@ -48,7 +48,7 @@ const Navigation = () => {
 
                 <button onClick={onLogOut} className="logout-button">Logout</button>
             </nav>
-            
+
         </div>
     )
 }

@@ -6,3 +6,4 @@ src/**/config.js
 
 # VSCode
 .vscode
+*.design
