@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import RestaurantReview from './RestaurantReview';
 
 const ResturantTab = ({name, phone, address, website, coordinates}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
     console.log(coordinates)
+    const [showPostReview, setShowPostReview] = useState(false)
     const latitude = coordinates[0]
     const longtitude = coordinates[1]
 
@@ -12,7 +14,7 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
     //     const data = await res.url
     //     setResturauntMapUrl(data)
     //     console.log (data)
-            
+
     // }
 
     useEffect(() => {
@@ -27,11 +29,11 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
 
     return (
         <div class="resturaunt-tab-container">
-     
-     
+
+
              <img src={resturauntMapUrl} />
              <div className="resturaunt-info">
-                
+
                 <h2>{name} <i class='bx bx-restaurant'></i></h2>
                 <h4>{phone} <i class='bx bxs-phone-call' ></i></h4>
                 <h4>{address} <i class='bx bxs-map'></i></h4>
@@ -41,8 +43,8 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
              <div>
                  <div>Ratings!</div>
 
-                 <div>Write a review!</div>
-                 <button className="">Post a review</button>
+                <button className="" onClick={() => setShowPostReview(!showPostReview)}>{!showPostReview ? 'Post a review' : 'Cancel'}</button>
+                {showPostReview && <RestaurantReview />}
              </div>
 
         </div>

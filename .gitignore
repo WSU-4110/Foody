@@ -7,3 +7,5 @@ src/**/config.js
 # VSCode
 .vscode
 *.design
+src/components/config/config.js
+src/components/config/config.js
