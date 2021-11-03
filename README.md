@@ -1,4 +1,19 @@
-# Getting Started with Create React App
+<h1 align='center'> Foody</h1>
+<p align="center">
+    <a href="https://github.com/WSU-4110/Foody">
+      <img alt="version" src="https://img.shields.io/badge/version-beta_v1.1-blue.svg?style=plastic" />
+    </a>
+    <a href="https://github.com/WSU-4110/Foody/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/WSU-4110/Foody?style=plastic" />
+    </a>
+ </p>
+
+**Foody is a web application that allows for users to post reviews and rate restaurants by separate categories.**
+
+## Preview
+![IMG](./img/homepage.png)
+
+# Build Instructions
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
