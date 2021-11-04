@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const ResturantTab = ({name, phone, address, website, coordinates}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
-    console.log(coordinates)
     const latitude = coordinates[0]
     const longtitude = coordinates[1]
 

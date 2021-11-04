@@ -7,23 +7,29 @@ import useUserCoordinates from './hooks/useUserCoordinates';
 import Map from './Map';
 
 const HomePage = () => {
-    const [restaurants, setRestaurants] = useState([])
+    const [restaurants, setRestaurants] = useState([]);
     const coord = useUserCoordinates();
     const position = [coord.coordinates.latitude, coord.coordinates.longitude];
+    const [queryParameter, setQueryParamter] = useState("restaurants");
 
     const bingApiRequest = async () => {
-        const res = await fetch(`https://dev.virtualearth.net/REST/v1/LocalSearch/?query=pizza&key=${BEARER_TOKEN}`)
-        const data = await res.json()
-        setRestaurants(data.resourceSets[0].resources)
+        const res = await fetch(`https://dev.virtualearth.net/REST/v1/LocalSearch/?query=${queryParameter}&key=${BEARER_TOKEN}`);
+        const data = await res.json();
+        setRestaurants(data.resourceSets[0].resources);
     }
 
     useEffect(() => {
         try {
-            bingApiRequest()
+            bingApiRequest();
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }, [])
+
+    const searchForRestaurants = (e) => {
+        e.preventDefault();
+        bingApiRequest();
+    }
 
     
     return (
@@ -32,6 +38,12 @@ const HomePage = () => {
 
             <Map center={position} restaurants={restaurants}/>
             <div className="home-page-main-container">
+                
+            <form className="search-resturant-form" onSubmit={searchForRestaurants}>
+                    <input className="search-resturant-input" type="text" placeholder="Search for a resturant!" value={queryParameter} onChange={((e) => setQueryParamter(e.target.value))}></input>
+                    <button className="search-button"><i class='bx bx-search-alt search-icon'></i></button>
+            </form>
+
                 <h2 className="search-result-title">Top Search Results!</h2>
                 {restaurants.map((restaurant) =>
                 <ResturantTab 
@@ -46,7 +58,8 @@ const HomePage = () => {
             <div className="footer-homepage">
                  <Footer />
             </div>
-        </div>
+
+         </div>
     )
 }
 
