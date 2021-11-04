@@ -13,8 +13,9 @@ const HomePage = () => {
     const [queryParameter, setQueryParamter] = useState("restaurants");
 
     const bingApiRequest = async () => {
-        const res = await fetch(`https://dev.virtualearth.net/REST/v1/LocalSearch/?query=${queryParameter}&key=${BEARER_TOKEN}`);
+        const res = await fetch(`https://dev.virtualearth.net/REST/v1/LocalSearch/?query=${queryParameter}&type=EatDrink&maxResults=25&key=${BEARER_TOKEN}`);
         const data = await res.json();
+        console.log(data);
         setRestaurants(data.resourceSets[0].resources);
     }
 
