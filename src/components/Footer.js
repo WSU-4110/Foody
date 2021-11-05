@@ -13,6 +13,7 @@ const Footer = () => {
                     <a class="social-link" href="#"><i className='bx bx-mail-send social-icon' ></i></a>
              
             </div>
+            <div> Copyright &copy; 2021, Foody </div>
         </footer>
     )
 }
