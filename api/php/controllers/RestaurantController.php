@@ -28,6 +28,6 @@ class RestaurantController {
         $response['response'] = $this->restaurantService->processReview($restaurantName, $restaurantAddress, $restaurantPhone,
         $restaurantWebsite, $review, $deliciousness, $service, $experience, $pricing);
 
-        // return json_encode($response);
+        return json_encode($response);
     }
 }

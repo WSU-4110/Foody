@@ -51,6 +51,11 @@ class DBConnecter {
     return mysqli_query($this->connection, $sql);
  }
 
+ public function cleanSPResults() {
+   // stored procedures return 2 result sets
+   mysqli_next_result($this->connection);
+ }
+
 
 }
 

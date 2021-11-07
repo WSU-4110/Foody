@@ -10,7 +10,7 @@ class RestaurantService {
     }
 
     public function processReview (string $restaurantName, string $restaurantAddress, string $restaurantPhone,
-      string $restaurantWebsite, string $review, int $deliciousness, int $service, int $experience, int $pricing) {
+        string $restaurantWebsite, string $review, int $deliciousness, int $service, int $experience, int $pricing) {
         if (strlen($review) == 0) {
             return "Review cannot be blank";
         } else {
@@ -19,11 +19,10 @@ class RestaurantService {
             $userId = 0;
 
             // TODO: add code to retrieve user id, probably in UserController
-            // $result =
-            $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousness, $service, $experience, $pricing);
-            // while($row = mysqli_fetch_assoc($result)) {
-            //     array_push($restaurantId, $row["restaurantId"]);
-            // }
+
+            $response = $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousness, $service, $experience, $pricing);
+
+            return $response;
         }
     }
 }

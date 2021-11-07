@@ -28,19 +28,21 @@ class RestaurantDbGateway {
         if (mysqli_num_rows($result) > 0) {
             $output = (int)mysqli_fetch_assoc($result)["restaurantId"];
         }
-        // $this->dbConnection->next_result();
+
+        $this->dbConnection->cleanSPResults();
 
         return $output;
     }
-    // TODO: figure out why false returned instead of actual result!!!!!!!!!!!!!!!!!!!!
+
     public function saveRestaurantReview (int $restaurantId, int $userId, string $review, int $deliciousness, int $service, int $experience, int $pricing) {
         $sql = "CALL foody.sp_saveReview ($restaurantId, $userId, '$review', $deliciousness, $service, $experience, $pricing);";
 
         $result = $this->dbConnection->returnQuery($sql);
-        $output = $result;
-        // $this->dbConnection->next_result();
+        $output = mysqli_fetch_assoc($result)["result"];
 
-        // return $result;
+        $this->dbConnection->cleanSPResults();
+
+        return $output;
     }
 
     // public function getRestaurantReviews () {

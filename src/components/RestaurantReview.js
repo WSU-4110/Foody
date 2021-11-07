@@ -35,16 +35,10 @@ const RestaurantReview = ({ restaurantName, restaurantPhone, restaurantAddress, 
     }
 
     const saveReview = async (restaurantReview) => {
-        // console.log(restaurantReview.body);
         const res = await fetch('http://localhost:80/api/index.php', restaurantReview);
 
-        const text = res.text();
-        console.log(text);
-
-        // const data = await res.json()
-        // console.log(data);
-        // console.log(data['response'])
-        // alert(data['response']);
+        const data = await res.json()
+        alert(data['response']);
     }
 
     return (
