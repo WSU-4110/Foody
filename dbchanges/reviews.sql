@@ -21,6 +21,7 @@ CREATE TABLE foody.restaurantReviews (
   serviceScore int,
   experienceScore int,
   pricingScore int,
+  pricingValue float,
   postDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   updateDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP()
 )
@@ -61,11 +62,11 @@ CREATE PROCEDURE foody.sp_saveReview (
   IN p_deliciousnessScore int,
   IN p_serviceScore int,
   IN p_experienceScore int,
-  IN p_pricingScore int
+  IN p_pricingScore int,
+  IN p_pricingValue float
 )
 BEGIN
-  -- SAMPLE RUN -> CALL foody.sp_saveReview (1, 2, 'test', 5, 5, 5, 5);
-  -- add update if review exists
+  -- SAMPLE RUN -> CALL foody.sp_saveReview (1, 2, 'test', 5, 5, 5, 5, 23.5);
   IF EXISTS (SELECT 1 FROM foody.restaurantReviews WHERE restaurantId = p_restaurantId AND userId = p_userId)
   THEN BEGIN
     UPDATE foody.restaurantReviews SET
@@ -74,6 +75,7 @@ BEGIN
       serviceScore = p_serviceScore,
       experienceScore = p_experienceScore,
       pricingScore = p_pricingScore,
+      pricingValue = p_pricingValue,
       updateDate = CURRENT_TIMESTAMP()
     WHERE restaurantId = p_restaurantId AND userId = p_userId;
 
@@ -87,7 +89,8 @@ BEGIN
     deliciousnessScore,
     serviceScore,
     experienceScore,
-    pricingScore
+    pricingScore,
+    pricingValue
   )
   VALUES (
     p_restaurantId,
@@ -96,11 +99,34 @@ BEGIN
     p_deliciousnessScore,
     p_serviceScore,
     p_experienceScore,
-    p_pricingScore
+    p_pricingScore,
+    p_pricingValue
   );
 
   SELECT 'Review saved' AS result;
   END IF;
+END $$
+
+DELIMITER ;
+
+-- --------------------
+DROP PROCEDURE IF EXISTS foody.calcRestaurantAvgScore;
+DELIMITER $$
+
+CREATE PROCEDURE foody.calcRestaurantAvgScore (
+  IN p_restaurantId int
+)
+BEGIN
+  -- SAMPLE RUN -> CALL foody.calcRestaurantAvgScore (0);
+  SELECT CASE
+    WHEN ROUND((
+  (SUM(deliciousnessScore) + 
+  SUM(serviceScore) +
+  SUM(experienceScore) +
+  SUM(pricingScore))/4), 2) = null
+    THEN 0
+  END as result
+FROM foody.restaurantreviews WHERE restaurantId = p_restaurantId;
 END $$
 
 DELIMITER ;

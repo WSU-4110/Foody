@@ -20,13 +20,14 @@ class RestaurantController {
         $restaurantAddress = (string)$data->restaurantAddress;
         $restaurantWebsite = (string)$data->restaurantWebsite;
         $review = (string)$data->review;
-        $deliciousness = (int)$data->deliciousness;
-        $service = (int)$data->service;
-        $experience = (int)$data->experience;
-        $pricing = (int)$data->pricing;
+        $deliciousnessScore = (int)$data->deliciousnessScore;
+        $serviceScore = (int)$data->serviceScore;
+        $experienceScore = (int)$data->experienceScore;
+        $pricingScore = (int)$data->pricingScore;
+        $pricingValue = (float)$data->pricingValue;
 
         $response['response'] = $this->restaurantService->processReview($restaurantName, $restaurantAddress, $restaurantPhone,
-        $restaurantWebsite, $review, $deliciousness, $service, $experience, $pricing);
+        $restaurantWebsite, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
 
         return json_encode($response);
     }

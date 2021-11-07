@@ -1,5 +1,3 @@
-//TODO: figure out why restaurantName is an object
-//TODO: beautify character count
 //TODO: add placeholder for error, probably in parent component rather than here
 
 import { useState } from 'react';
@@ -7,10 +5,11 @@ import { Star } from 'react-star';
 
 const RestaurantReview = ({ restaurantName, restaurantPhone, restaurantAddress, restaurantWebsite }) => {
     const [textReview, setTextReview] = useState('');
-    const [deliciousness, setDeliciousness] = useState(0);
-    const [service, setService] = useState(0);
-    const [experience, setExperience] = useState(0);
-    const [pricing, setPricing] = useState(0);
+    const [deliciousnessScore, setDeliciousnessScore] = useState(0);
+    const [serviceScore, setServiceScore] = useState(0);
+    const [experienceScore, setExperienceScore] = useState(0);
+    const [pricingScore, setPricingScore] = useState(0);
+    const [pricingValue, setPricingValue] = useState(0);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -25,19 +24,22 @@ const RestaurantReview = ({ restaurantName, restaurantPhone, restaurantAddress, 
                 restaurantAddress: restaurantAddress,
                 restaurantWebsite: restaurantWebsite,
                 review: textReview,
-                deliciousness: deliciousness,
-                service: service,
-                experience: experience,
-                pricing: pricing})
+                deliciousnessScore: deliciousnessScore,
+                serviceScore: serviceScore,
+                experienceScore: experienceScore,
+                pricingScore: pricingScore,
+                pricingValue: pricingValue
+            })
         }
 
         saveReview(restaurantReview);
     }
 
     const saveReview = async (restaurantReview) => {
+        // console.log(restaurantReview.body);
         const res = await fetch('http://localhost:80/api/index.php', restaurantReview);
 
-        const data = await res.json()
+        const data = await res.json();
         alert(data['response']);
     }
 
@@ -54,25 +56,25 @@ const RestaurantReview = ({ restaurantName, restaurantPhone, restaurantAddress, 
                 </div>
                 <div className='item'>
                     <label>Deliciousness</label>
-                    <Star onChange={(value) => setDeliciousness(value)} />
+                    <Star onChange={(value) => setDeliciousnessScore(value)} />
                 </div>
                 <div className='item'>
                     <label>Service</label>
-                    <Star onChange={(value) => setService(value)} />
+                    <Star onChange={(value) => setServiceScore(value)} />
                 </div>
                 <div className='item'>
                     <label>Experience</label>
-                    <Star onChange={(value) => setExperience(value)} />
+                    <Star onChange={(value) => setExperienceScore(value)} />
                 </div>
                 <div className='item'>
                     <label>Pricing</label>
-                    <Star defaultValue={pricing} onChange={(value) => setPricing(value)} />
+                    <Star onChange={(value) => setPricingScore(value)} />
                 </div>
-                {/* <div className='item'>
-                    <label>Pricing</label>
-                    <br/>
-                    $<input name='review-pricing' type='number' width='20' min='1' step='any' />
-                </div> */}
+                <div className='item'>
+                    <label></label>
+                    $<input name='pricingValue' type='number' width='20' min='1' step='0.01'
+                        onChange={(e) => setPricingValue(e.target.value)} /> spent
+                </div>
                 <div className='item'>
                     <input type='submit' value='Submit'/>
                 </div>

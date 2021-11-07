@@ -10,7 +10,7 @@ class RestaurantService {
     }
 
     public function processReview (string $restaurantName, string $restaurantAddress, string $restaurantPhone,
-        string $restaurantWebsite, string $review, int $deliciousness, int $service, int $experience, int $pricing) {
+        string $restaurantWebsite, string $review, int $deliciousnessScore, int $serviceScore, int $experienceScore, int $pricingScore, float $pricingValue) {
         if (strlen($review) == 0) {
             return "Review cannot be blank";
         } else {
@@ -20,7 +20,7 @@ class RestaurantService {
 
             // TODO: add code to retrieve user id, probably in UserController
 
-            $response = $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousness, $service, $experience, $pricing);
+            $response = $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
 
             return $response;
         }

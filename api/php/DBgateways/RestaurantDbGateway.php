@@ -34,8 +34,8 @@ class RestaurantDbGateway {
         return $output;
     }
 
-    public function saveRestaurantReview (int $restaurantId, int $userId, string $review, int $deliciousness, int $service, int $experience, int $pricing) {
-        $sql = "CALL foody.sp_saveReview ($restaurantId, $userId, '$review', $deliciousness, $service, $experience, $pricing);";
+    public function saveRestaurantReview (int $restaurantId, int $userId, string $review, int $deliciousnessScore, int $serviceScore, int $experienceScore, int $pricingScore, float $pricingValue) {
+        $sql = "CALL foody.sp_saveReview ($restaurantId, $userId, '$review', $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);";
 
         $result = $this->dbConnection->returnQuery($sql);
         $output = mysqli_fetch_assoc($result)["result"];
