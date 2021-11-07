@@ -44,7 +44,11 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
                  <div>Ratings!</div>
 
                 <button className="" onClick={() => setShowPostReview(!showPostReview)}>{!showPostReview ? 'Post a review' : 'Cancel'}</button>
-                {showPostReview && <RestaurantReview />}
+                {showPostReview && <RestaurantReview
+                    restaurantName = { name }
+                    restaurantPhone = { phone }
+                    restaurantAddress = { address }
+                    restaurantWebsite = { website }/>}
              </div>
 
         </div>
