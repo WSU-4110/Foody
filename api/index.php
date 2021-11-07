@@ -12,6 +12,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // header("Access-Control-Allow-Headers: Content-Type");
 
 include "php/controllers/UsersController.php";
+include "php/controllers/RestaurantController.php";
 
 $requestBodyJson = file_get_contents('php://input');
 $data = json_decode($requestBodyJson);
@@ -43,6 +44,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else if($data->url == "/user/login") {
 		$userController = new UsersController();
 		echo $userController->userLoginRequest($data);
+	} else if ($data->url == "/restaurant/review/save") {
+		$restaurantController = new RestaurantController();
+		echo $restaurantController->saveReview($data);
 	}
 
 

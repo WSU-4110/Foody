@@ -11,7 +11,7 @@ class UsersDbGateway {
  private $username = "root";
  private $password = "foody";
  private $db = "foody";
- 
+
  // Create connection
  private $conn = null;
 

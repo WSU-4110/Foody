@@ -3,18 +3,18 @@
 include "php/DBgateways/UsersDbGateway.php";
 
 class UsersService {
-	
+
 	private $usersDbGateway;
-	
-	
+
+
 	public function __construct() {
 		$this->usersDbGateway = new UsersDbGateway();
 		// echo "service obj created";
 	}
-	
+
 	public function validateNewUserData(string $username, string $email, string $password){
 		$isUsernameValid = $this->usersDbGateway->checkIfUsernameIsValid($username);
-		
+
 		if(empty($isUsernameValid)){
 			$this->usersDbGateway->registerNewUser($username, $email, $password);
 			return "Valid username, account created";
@@ -31,7 +31,7 @@ class UsersService {
 
 			$_SESSION['username'] = $username;
 
-			
+
 			// echo $_SESSION['username'];
 			return "User logged in";
 		} else {
@@ -39,5 +39,5 @@ class UsersService {
 		}
 
 	}
-	
+
 }
