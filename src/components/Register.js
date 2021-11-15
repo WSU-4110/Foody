@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 import Footer from './Footer'
-import {useMediaQuery} from 'react-responsive'
+import { useMediaQuery } from 'react-responsive'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const Register = ({background}) => {
 
@@ -31,8 +32,6 @@ const Register = ({background}) => {
         //     alert ('Please enter password')
         //     return
         // }
-
-
         const newUserInformation = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
@@ -43,17 +42,12 @@ const Register = ({background}) => {
                 password: password })
             
         }
-
         registerUserPost(newUserInformation)
-
-
         // onAdd({text, day, reminder})
         // setUsername('')
         // setPassword('')
         // setEmail('')
     }
-
-
 
     const registerUserPost = async (newUserInformation) => {
         console.log(newUserInformation)
@@ -76,52 +70,44 @@ const Register = ({background}) => {
                 setInvalidUsername(true);
         }
     }
-
+ 
+    const handleOnChange = (value) => {
+        console.log("ReCaptha Value",value)
+        this.setState({isVerified: true})
+    }
 
     return (
         <div className={background}>
             <div className="register-container">
-
                 <div className="back-arrow">
                     <Link to="/" style={{textDecoration: 'none'}}>
                         <a href="#"><i class='bx bxs-left-arrow-circle'></i></a>
                     </Link>
                 </div>
-
-
                 {accountCreated ? <h2>Your account was created!</h2> : <h2>Register an account here!</h2>}
-
                 {accountCreated ? <div className="successful-register"><label>Click here to sign in!</label> <Link to="/" ><button className="register-form-submit-button"> Sign in!</button></Link></div>
                 : <div>
                     <form className="" onSubmit={onSubmit}>
                         <div className="register-form">
                             <label> Enter an email address </label>
                             <input className="register-form-text-input" type="text" placeholder="Email" value={email} onChange={((e) => setEmail(e.target.value))}></input>
-
                             <label> Enter a username </label>
                             {invalidUsername ? <label className="invalid">Error: Username is already in use with another account. Try a different username!</label> : <label></label>}
                             <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
-
-
                             <label> Enter a password </label>
                             <input className="register-form-text-input" type="text" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
-
-
+                                <ReCAPTCHA
+                                    sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
+                                    onChange={handleOnChange}/>
                             <input className="register-form-submit-button" type="submit" placeholder="Login"></input>
                         </div>
                     </form>
-
-                
                 </div> }
-
-
                 <div className="">
                     {LaptopScreen ?  <div></div> : <Footer />} 
                 </div>
-        
             </div>
         </div>
-
     )
 }
 
