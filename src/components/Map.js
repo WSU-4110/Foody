@@ -5,14 +5,14 @@ const Map = ({center, restaurants}) => {
     
     const CenterMapWithUserCoords = () => {
         const map = useMap();
-        map.setView(center, 12);
+        map.setView(center, 15);
         return null;
     }
 
     return (
         <div>
               <div className="leaflet-container">
-                <MapContainer center={center} zoom={12} scrollWheelZoom={false}>
+                <MapContainer center={center} zoom={11} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
