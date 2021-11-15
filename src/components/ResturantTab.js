@@ -3,8 +3,6 @@ import RestaurantReview from './RestaurantReview';
 
 const ResturantTab = ({name, phone, address, website, coordinates}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
-    console.log(coordinates)
-    const [showPostReview, setShowPostReview] = useState(false)
     const latitude = coordinates[0]
     const longtitude = coordinates[1]
 
