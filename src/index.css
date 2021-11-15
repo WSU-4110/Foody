@@ -376,7 +376,15 @@ border-radius: 1rem;
   border: 2px dashed rgba(114, 186, 94, 0.35); */
 }
 
-.item {
+.item-one-row {
+  box-sizing: border-box;
+  width: 180px;
+  height: 25px;
+  /* background: rgba(255, 213, 70, 0.4);
+  border: 2px dashed rgba(236, 198, 48, 0.5); */
+}
+
+.item-two-row {
   box-sizing: border-box;
   width: 180px;
   height: 50px;
@@ -384,7 +392,7 @@ border-radius: 1rem;
   border: 2px dashed rgba(236, 198, 48, 0.5); */
 }
 
-input[name='review-pricing']  {
+input[name='pricingValue']  {
   width: 80px;
 }
 /* Restaurant review end */

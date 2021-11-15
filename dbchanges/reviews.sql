@@ -26,6 +26,19 @@ CREATE TABLE foody.restaurantReviews (
   updateDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP()
 )
 
+DROP TABLE IF EXISTS foody.restaurantImages;
+CREATE TABLE foody.restaurantImages (
+  restaurantId int NOT NULL,
+  reviewId int NOT NULL,
+  imageId int AUTO_INCREMENT PRIMARY KEY,
+  imageName varchar(200),
+  imageSize varchar(50),
+  imageType varchar(50),
+  imageEncoded TEXT CHARACTER SET ascii COLLATE ascii_bin,
+  postDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+
 -- select * from information_schema.tables where table_schema='foody' limit 5;
 
 -- ------------------------------------------------------------
@@ -42,11 +55,12 @@ CREATE PROCEDURE foody.sp_validateRestaurant (
 BEGIN
   -- SAMPLE RUN -> CALL foody.sp_validateRestaurant ('testRestaurant', '123 test dr', 'xxx-xxx-xxxx', 'http://test.com', @restaurantId);
   INSERT INTO foody.restaurants (restaurantName, restaurantAddress, restaurantPhone, restaurantWebsite)
-  SELECT * FROM (SELECT p_restaurantName, p_restaurantAddress, p_restaurantPhone, p_restaurantWebsite) AS tmp
+  SELECT restaurantName, restaurantAddress, restaurantPhone, restaurantWebsite 
+  FROM (SELECT p_restaurantName, p_restaurantAddress, p_restaurantPhone, p_restaurantWebsite) AS tmp
   WHERE NOT EXISTS (SELECT 1 FROM foody.restaurants WHERE restaurantName = p_restaurantName AND
     restaurantAddress = p_restaurantAddress);
 
-  SELECT restaurantId from foody.restaurants WHERE restaurantName = p_restaurantName AND p_restaurantAddress = p_restaurantAddress;
+  SELECT restaurantId from foody.restaurants WHERE restaurantName = p_restaurantName AND restaurantAddress = p_restaurantAddress;
 END $$
 
 DELIMITER ;
@@ -133,3 +147,6 @@ DELIMITER ;
 
 -- select * from restaurants;
 -- select * from restaurantReviews;
+
+
+-- --------------------

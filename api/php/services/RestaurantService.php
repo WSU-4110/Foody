@@ -10,7 +10,8 @@ class RestaurantService {
     }
 
     public function processReview (string $restaurantName, string $restaurantAddress, string $restaurantPhone,
-        string $restaurantWebsite, string $review, int $deliciousnessScore, int $serviceScore, int $experienceScore, int $pricingScore, float $pricingValue) {
+        string $restaurantWebsite, string $review, int $deliciousnessScore, int $serviceScore, int $experienceScore, int $pricingScore, float $pricingValue,
+        array $images) {
         if (strlen($review) == 0) {
             return "Review cannot be blank";
         } else {
@@ -20,9 +21,15 @@ class RestaurantService {
 
             // TODO: add code to retrieve user id, probably in UserController
 
-            $response = $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
+            $reviewId = $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
 
-            return $response;
+            if (count($images) > 0) {
+                foreach ($images as $image) {
+                    $this->restaurantDbGateway->addRestaurantImage($restaurantId, $reviewId, $image->name, $image->type, $image->size, $image->base64);
+                }
+            }
+
+            // return $response;
         }
     }
 }

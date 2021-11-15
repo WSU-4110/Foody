@@ -56,6 +56,10 @@ class DBConnecter {
    mysqli_next_result($this->connection);
  }
 
+ public function cleanInput($string) {
+   return mysqli_real_escape_string($this->connection, $string);
+ }
+
 
 }
 

@@ -25,9 +25,10 @@ class RestaurantController {
         $experienceScore = (int)$data->experienceScore;
         $pricingScore = (int)$data->pricingScore;
         $pricingValue = (float)$data->pricingValue;
+        $images = (array)$data->images;
 
         $response['response'] = $this->restaurantService->processReview($restaurantName, $restaurantAddress, $restaurantPhone,
-        $restaurantWebsite, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
+        $restaurantWebsite, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue, $images);
 
         return json_encode($response);
     }

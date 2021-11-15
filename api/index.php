@@ -48,7 +48,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$restaurantController = new RestaurantController();
 		echo $restaurantController->saveReview($data);
 	}
-
-
 }
 
