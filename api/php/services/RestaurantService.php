@@ -29,7 +29,7 @@ class RestaurantService {
                 }
             }
 
-            // return $response;
+            return $reviewId;
         }
     }
 }

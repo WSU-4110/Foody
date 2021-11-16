@@ -53,7 +53,7 @@ CREATE PROCEDURE foody.sp_validateRestaurant (
   IN p_restaurantWebsite varchar(200)
 )
 BEGIN
-  -- SAMPLE RUN -> CALL foody.sp_validateRestaurant ('testRestaurant', '123 test dr', 'xxx-xxx-xxxx', 'http://test.com', @restaurantId);
+  -- SAMPLE RUN -> CALL foody.sp_validateRestaurant ('testRestaurant', '123 test dr', 'xxx-xxx-xxxx', 'http://test.com');
   INSERT INTO foody.restaurants (restaurantName, restaurantAddress, restaurantPhone, restaurantWebsite)
   SELECT restaurantName, restaurantAddress, restaurantPhone, restaurantWebsite 
   FROM (SELECT p_restaurantName, p_restaurantAddress, p_restaurantPhone, p_restaurantWebsite) AS tmp
@@ -93,7 +93,7 @@ BEGIN
       updateDate = CURRENT_TIMESTAMP()
     WHERE restaurantId = p_restaurantId AND userId = p_userId;
 
-    SELECT 'Review updated' AS result;
+    SELECT MAX(ReviewId) AS result FROM foody.restaurantReviews WHERE restaurantId = p_restaurantId AND userId = p_userId;
   END;
   ELSE
   INSERT INTO foody.restaurantReviews (
@@ -117,7 +117,7 @@ BEGIN
     p_pricingValue
   );
 
-  SELECT 'Review saved' AS result;
+  SELECT MAX(ReviewId) AS result FROM foody.restaurantReviews WHERE restaurantId = p_restaurantId AND userId = p_userId;
   END IF;
 END $$
 
