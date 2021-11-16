@@ -12,9 +12,11 @@ const ProfilePage = () => {
 
             <div className="profile-page-main-container">
                 
-                <h2>FirstName LastName</h2>
+                <h2>Hello, "Username"!</h2>
 
                 <img className="profile-pic" src="/images/profile-default.svg" alt=""/>
+
+                <h2>Review History</h2>
             </div>
 
             <RecentReviews
@@ -32,7 +34,6 @@ const ProfilePage = () => {
                 city={"Hazel Park, MI"}
                 website={"Pizza.com"}
             />
-
 
             <div className="footer-profilepage">
                 <Footer />
