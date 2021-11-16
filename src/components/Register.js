@@ -93,10 +93,12 @@ const Register = ({background}) => {
                             <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
                             <label> Enter a password </label>
                             <input className="register-form-text-input" type="password" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
-                                <ReCAPTCHA
-                                    sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
-                                    onChange={handleOnChange}
-                                />
+                            <label> Confirm password </label>
+                            <input className="register-form-text-input" type="password" placeholder="Confirm Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
+                            <ReCAPTCHA
+                                sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
+                                onChange={handleOnChange}
+                            />
                             <input
                                     disabled={isVerified}
                                     className="register-form-submit-button"
