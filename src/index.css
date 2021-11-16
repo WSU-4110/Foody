@@ -49,6 +49,7 @@ body {
 
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 /* * {
   box-sizing: border-box;
@@ -141,7 +142,7 @@ input[type=password] {
 footer {
   background-color: var(--second-color);
   color: white;
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -384,8 +385,45 @@ border-radius: 1rem;
   padding-top: 6rem;
 }
 
-img.profile-pic{
+img.profile-pic {
   height: 400px;
   float: left;
-  padding: 2rem;
+  padding: 2rem 9rem;
+}
+
+.recent-review-container {
+  padding: 4rem;
+  border-radius: 5px;
+  width: 75%;
+  margin-left: 2rem;
+  /* margin: 0 auto; */
+  margin-bottom: 2rem;
+  display: inline-block;
+  border: solid 1px lightgrey;
+  justify-content: space-evenly;
+}
+
+.checked {
+  color: orange;
+}
+
+.star-ratings-container {
+  display: flex;
+  flex-direction: row;
+  padding: .5rem;
+  border-radius: 5px;
+}
+
+.rating {
+  padding: 0 2rem 0 2rem;
+}
+
+.rating h5 {
+  padding: 0;
+  margin: 0;
+}
+
+.text-review-container p {
+  text-align: left;
+  font-size: 1.5rem;
 }
