@@ -92,7 +92,25 @@ const Register = ({background}) => {
                             {invalidUsername ? <label className="invalid">Error: Username is already in use with another account. Try a different username!</label> : <label></label>}
                             <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
                             <label> Enter a password </label>
-                            <input className="register-form-text-input" type="password" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
+                            <input
+                                    className="register-form-text-input"
+                                    type="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={((e) => setPassword(e.target.value))}>
+                            </input>
+                            <label> Confirm password </label>
+                            <input
+                                    className="register-form-text-input"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    value={password}
+                                    onChange={((e) => setPassword(e.target.value))}>
+                            </input>
+                            <ReCAPTCHA
+                                sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
+                                onChange={handleOnChange}
+                            />
                             <input
                                     className="register-form-submit-button"
                                     type="submit" placeholder="Login">
