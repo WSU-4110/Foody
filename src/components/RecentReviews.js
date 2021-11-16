@@ -5,11 +5,12 @@ const RecentReviews = ({ name, city, website }) => {
     return (
         <div class="recent-review-container">
 
+            
 
             <div class="recent-review-info">
 
                 <h2>{name} <i class='bx bx-restaurant'></i></h2>
-                <h4>{city} <i class='bx bxs-phone-call' ></i></h4>
+                <h3> - {city} <i class='bx bxs-map'></i></h3>
                 <h4><a href={website} >Website <i class='bx bxs-navigation' ></i></a></h4>
 
                 <div class="star-ratings-container">

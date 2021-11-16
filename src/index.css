@@ -427,6 +427,10 @@ input[name='pricingValue']  {
   padding-top: 6rem;
 }
 
+.profile-page-main-container h2 {
+  clear: both;
+}
+
 img.profile-pic {
   height: 400px;
   float: left;
@@ -436,13 +440,38 @@ img.profile-pic {
 .recent-review-container {
   padding: 4rem;
   border-radius: 5px;
-  width: 75%;
+  width: 80%;
   margin-left: 2rem;
   /* margin: 0 auto; */
   margin-bottom: 2rem;
   display: inline-block;
   border: solid 1px lightgrey;
   justify-content: space-evenly;
+  clear: both;
+}
+
+.recent-review-container h2 {
+  padding: 0rem;
+  margin-bottom: .5rem;
+  vertical-align: middle;
+  float: left;
+
+}
+
+.recent-review-container h3 {
+  padding: .30rem 0 0 0;
+  margin-bottom: .5rem;
+  vertical-align: middle;
+  float: left;
+  color: #6d6d6d;
+}
+
+.recent-review-container h4 {
+  padding: 0rem;
+  margin-bottom: .5rem;
+  clear: both;
+  text-align: left;
+  display: block;
 }
 
 .checked {
@@ -454,6 +483,7 @@ img.profile-pic {
   flex-direction: row;
   padding: .5rem;
   border-radius: 5px;
+  clear: both;
 }
 
 .rating {
@@ -469,3 +499,4 @@ img.profile-pic {
   text-align: left;
   font-size: 1.5rem;
 }
+
