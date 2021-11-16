@@ -14,6 +14,7 @@ const Register = ({background}) => {
     const[invalidUsername, setInvalidUsername] = useState(false);
     const[accountCreated, setAccountCreated] = useState(false);
     const history = useHistory()
+    const isVerified = useState(false);
 
     const LaptopScreen = useMediaQuery({
         query: '(max-width: 1280px)'
@@ -21,7 +22,6 @@ const Register = ({background}) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-
         // if(!email ) {
         //     alert('Please add email')
         //     return
@@ -40,7 +40,6 @@ const Register = ({background}) => {
                 emailaddress: email,
                 username: username,
                 password: password })
-            
         }
         registerUserPost(newUserInformation)
         // onAdd({text, day, reminder})
@@ -56,10 +55,8 @@ const Register = ({background}) => {
         const data = await res.json()
         console.log(data);
         console.log(data['response'])
-
         validateResponseData(data)
       }
-
 
     const validateResponseData = (data) => {
         if(data['response'] === "Valid username, account created") {
@@ -72,7 +69,7 @@ const Register = ({background}) => {
     }
  
     const handleOnChange = (value) => {
-        console.log("ReCaptha Value",value)
+        console.log("ReCaptha Value: ",value)
         this.setState({isVerified: true})
     }
 
@@ -95,16 +92,21 @@ const Register = ({background}) => {
                             {invalidUsername ? <label className="invalid">Error: Username is already in use with another account. Try a different username!</label> : <label></label>}
                             <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
                             <label> Enter a password </label>
-                            <input className="register-form-text-input" type="text" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
+                            <input className="register-form-text-input" type="password" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
                                 <ReCAPTCHA
                                     sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
-                                    onChange={handleOnChange}/>
-                            <input className="register-form-submit-button" type="submit" placeholder="Login"></input>
+                                    onChange={handleOnChange}
+                                />
+                            <input
+                                    disabled={isVerified}
+                                    className="register-form-submit-button"
+                                    type="submit" placeholder="Login">
+                            </input>
                         </div>
                     </form>
                 </div> }
                 <div className="">
-                    {LaptopScreen ?  <div></div> : <Footer />} 
+                    {LaptopScreen ?  <div></div> : <Footer/>} 
                 </div>
             </div>
         </div>
