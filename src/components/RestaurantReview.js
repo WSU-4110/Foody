@@ -14,7 +14,7 @@ const RestaurantReview = ({
   const [experienceScore, setExperienceScore] = useState(0);
   const [pricingScore, setPricingScore] = useState(0);
   const [pricingValue, setPricingValue] = useState(0);
-  const [base64Img, setBase64Img] = useState();
+  const [base64Img, setBase64Img] = useState([]);
 
 
   const onSubmit = (e) => {
@@ -38,7 +38,7 @@ const RestaurantReview = ({
         experienceScore: experienceScore,
         pricingScore: pricingScore,
         pricingValue: pricingValue,
-        images: base64Img.length > 0 ? base64Img[1] : '' //TODO: add validation for empty array
+        images: base64Img.length > 0 ? base64Img[1] : [] //TODO: add validation for empty array
       }),
     };
 
@@ -49,14 +49,16 @@ const RestaurantReview = ({
     // console.log(restaurantReview.body);
     // console.warn(base64Img[1][0].base64);
     const res = await fetch(
-      "http://localhost:80/api/test.php",
+      "http://localhost:80/api/index.php",
       restaurantReview
     );
 
 
-    // const data = res.json();
-    // console.warn(data['response']);
-    // alert(data['response']);
+    const data = await res.json();
+    console.log(data['response']);
+    if (Number.isInteger(parseInt(data['response']))) {
+      alert("Review Saved");
+    }
   };
 
 
@@ -104,14 +106,14 @@ const RestaurantReview = ({
           />{" "}
           spent
         </div>
-        <div className="item-one-row">
+        {/* <div className="item-one-row">
           <FileBase64
             type="file"
             multiple={true}
             onDone={
               (base64) => setBase64Img([base64Img, base64])}
           />
-        </div>
+        </div> */}
         <div className="item-one-row">
           <input type="submit" value="Submit" />
         </div>
