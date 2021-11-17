@@ -68,10 +68,10 @@ const Register = ({background}) => {
         }
     }
  
-    const handleOnChange = (value) => {
-        console.log("ReCaptha Value: ",value)
-        this.setState({isVerified: true})
-    }
+    // const handleOnChange = (value) => {
+    //     console.log("ReCaptha Value: ",value)
+    //     this.setState({isVerified: true})
+    // }
 
     return (
         <div className={background}>
@@ -93,14 +93,7 @@ const Register = ({background}) => {
                             <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
                             <label> Enter a password </label>
                             <input className="register-form-text-input" type="password" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
-                            <label> Confirm password </label>
-                            <input className="register-form-text-input" type="password" placeholder="Confirm Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
-                            <ReCAPTCHA
-                                sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
-                                onChange={handleOnChange}
-                            />
                             <input
-                                    disabled={isVerified}
                                     className="register-form-submit-button"
                                     type="submit" placeholder="Login">
                             </input>
