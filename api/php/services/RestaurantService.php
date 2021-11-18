@@ -23,14 +23,14 @@ class RestaurantService {
 
             $reviewId = $this->restaurantDbGateway->saveRestaurantReview($restaurantId, $userId, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
 
-            if (count($images) > 0) {
-                foreach ($images as $image) {
-                    $this->restaurantDbGateway->addRestaurantImage($restaurantId, $reviewId, $image->name, $image->type, $image->size, $image->base64);
-                }
-            }
+            $test = new FileSystemImage($restaurantId, $reviewId);
 
-            return $reviewId;
+            adapterTest($test);
         }
+    }
+
+    public function adapterTest(Image $adapterTest, array $images) {
+        $adapterTest->save($images);
     }
 }
 

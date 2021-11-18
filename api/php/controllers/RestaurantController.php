@@ -1,6 +1,7 @@
 <?php
 
 include "php/services/RestaurantService.php";
+include "php/services/ImageService.php";
 
 class RestaurantController {
     private $restaurantService;
