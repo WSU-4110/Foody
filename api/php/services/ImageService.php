@@ -30,11 +30,6 @@ class FileSystemImage implements Image {
             $this->restaurantDbGateway->addRestaurantImage($this->restaurantId, $this->reviewId, $image->name, 'image/png', '', '');
         }
     }
-
-    public function retrieve () {
-
-    }
-
 }
 
 class DbImage implements Image {
