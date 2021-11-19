@@ -12,7 +12,7 @@ class DatabaseConnecter {
         $this->connection = getConnection()
   }
 
-  public function getConnection() {
+  public static function getConnection() {
 
     $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->db);
 
