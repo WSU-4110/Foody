@@ -20,12 +20,16 @@ class DatabaseConnecter {
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
-      
-      if(instance == null) {
-          $this->instance = new DatabaseConnecter();
-      }
 
       $this->connection = $conn;
+  }
+
+  public static function getDbConnecter() {
+    if(instance == null) {
+          $this->instance = new DatabaseConnecter();
+    }
+
+      return instance;
   }
 
   public function returnQuery($sql) {
