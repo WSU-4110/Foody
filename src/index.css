@@ -436,6 +436,44 @@ img.profile-pic {
   float: left;
   padding: 2rem 9rem;
 }
+.update-container {
+  max-width: 70vh;
+  margin: 65px auto;
+  overflow: auto;
+  min-height: 300px;
+  padding: 30px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important
+}
+.update-info-submit-button {
+  background-color: var(--first-color);
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 15px;
+  margin-top: 1.5rem;
+}
+.update-info-submit-button:hover {
+  background-color: #ED1C16;
+}
+.update-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  text-align: left;
+}
+.show-info-text {
+  border: 3px solid var(--first-color);
+}
+
+.custom-file-upload {
+  border: 3px solid rgba(75, 73, 73, 0.295);;
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+}
 
 .recent-review-container {
   padding: 4rem;
