@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router'
 import Footer from './Footer';
 import {useMediaQuery} from 'react-responsive'
+//import ProfilePage from './ProfilePage';
 
 const Login = ({background}) => {
 
@@ -11,6 +12,8 @@ const Login = ({background}) => {
     const [password, setPassword] = useState('');
     const [userLoggedIn, setUserLoggedIn] = useState(true);
     const history = useHistory()
+
+    
 
     const LaptopScreen = useMediaQuery({
         query: '(max-width: 1280px)'
