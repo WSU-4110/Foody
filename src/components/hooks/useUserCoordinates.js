@@ -16,6 +16,10 @@ const useUserCoordinates = () => {
             }
         });
     };
+    useState(() =>{
+        const [value, setValue] = useState(initialState);
+        
+    })
 
     const onError = (error) => {
         setCoords({
