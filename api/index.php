@@ -13,6 +13,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include "php/controllers/UsersController.php";
 include "php/controllers/RestaurantController.php";
+include "php/controllers/ReviewController.php";
 
 $requestBodyJson = file_get_contents('php://input');
 $data = json_decode($requestBodyJson);
@@ -27,6 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 		session_unset();
 		session_destroy();
 	}
+
 	// } else if($_GET['action'] == 'yelpApiRequest') {
 	// 	$result = file_get_contents('https://api.yelp.com/v3/businesses/search?location=detroit')
 
@@ -44,9 +46,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else if($data->url == "/user/login") {
 		$userController = new UsersController();
 		echo $userController->userLoginRequest($data);
-	} else if ($data->url == "/restaurant/review/save") {
+	} else if ($data->url == "/restaurant/process") {
 		$restaurantController = new RestaurantController();
-		echo $restaurantController->saveReview($data);
+		echo $restaurantController->saveRestaurant($data);
+	} else if ($data->url =="/restaurant/id") {
+		$restaurantController = new RestaurantController();
+		echo $restaurantController->getRestaurantId($data);
+	} else if ($data->url == "/review/save") {
+		$reviewController = new ReviewController();
+		echo $reviewController->saveUserReview($data);
 	}
 }
 

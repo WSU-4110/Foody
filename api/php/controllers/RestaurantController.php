@@ -10,25 +10,22 @@ class RestaurantController {
 
     }
 
-    // public function getRestaurantId ()
-    // {
-    // }
-
-    public function saveReview ($data) {
+    public function saveRestaurant ($data) {
         $restaurantName = (string)$data->restaurantName;
         $restaurantPhone = (string)$data->restaurantPhone;
         $restaurantAddress = (string)$data->restaurantAddress;
         $restaurantWebsite = (string)$data->restaurantWebsite;
-        $review = (string)$data->review;
-        $deliciousnessScore = (int)$data->deliciousnessScore;
-        $serviceScore = (int)$data->serviceScore;
-        $experienceScore = (int)$data->experienceScore;
-        $pricingScore = (int)$data->pricingScore;
-        $pricingValue = (float)$data->pricingValue;
-        $images = (array)$data->images;
 
-        $response['response'] = $this->restaurantService->processReview($restaurantName, $restaurantAddress, $restaurantPhone,
-        $restaurantWebsite, $review, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue, $images);
+        $response['response'] = $this->restaurantService->saveRestaurant($restaurantName, $restaurantAddress, $restaurantPhone, $restaurantWebsite);
+
+        return json_encode($response);
+    }
+
+    public function getRestaurantId ($data) {
+        $restaurantName = (string)$data->restaurantName;
+        $restaurantAddress = (string)$data->restaurantAddress;
+
+        $response['response'] = $this->restaurantService->getRestaurantId($restaurantName, $restaurantAddress);
 
         return json_encode($response);
     }
