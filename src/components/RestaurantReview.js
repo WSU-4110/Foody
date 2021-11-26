@@ -1,71 +1,104 @@
-import { useState } from "react";
-import { Star } from "react-star";
-import FileBase64 from "react-file-base64";
+import { useState, useRef } from 'react';
+import { Star } from 'react-star';
+import FileBase64 from 'react-file-base64';
 
 const RestaurantReview = ({
-  restaurantName,
-  restaurantPhone,
-  restaurantAddress,
-  restaurantWebsite,
+  restaurantId
 }) => {
-  const [textReview, setTextReview] = useState("");
+  const [textReview, setTextReview] = useState('');
   const [deliciousnessScore, setDeliciousnessScore] = useState(0);
   const [serviceScore, setServiceScore] = useState(0);
   const [experienceScore, setExperienceScore] = useState(0);
   const [pricingScore, setPricingScore] = useState(0);
   const [pricingValue, setPricingValue] = useState(0);
   const [base64Img, setBase64Img] = useState([]);
+  const [textAreaStatus, changeTextAreaStatus] = useState(false);
+  const [submitIsDisabled, setSubmitBtnStatus] = useState(false);
+
+  const infoMsgRef = useRef();
+
+  const appendInfoMsg = (string, addString) => {
+    let processedString = '';
+
+    if (string.length === 0 && addString.length > 0) {
+      processedString = addString;
+    }
+    if (string.length > 0 && addString.length === 0) {
+      processedString = string;
+    }
+    if (string.length > 0 && addString.length > 0) {
+      processedString = string + '; ' + addString;
+
+    }
+      return processedString;
+  }
 
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const restaurantReview = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        url: "/restaurant/review/save",
-        restaurantName: restaurantName,
-        restaurantPhone: restaurantPhone,
-        restaurantAddress: restaurantAddress,
-        restaurantWebsite: restaurantWebsite,
-        review: textReview,
-        deliciousnessScore: deliciousnessScore,
-        serviceScore: serviceScore,
-        experienceScore: experienceScore,
-        pricingScore: pricingScore,
-        pricingValue: pricingValue,
-        images: base64Img.length > 0 ? base64Img[1] : [] //TODO: add validation for empty array
-      }),
-    };
+    if (textReview.length === 0 || (pricingValue === 0 || pricingValue.length === 0)) {
+      infoMsgRef.current.style.color = "red";
+      let infoMsg = '';
 
-    saveReview(restaurantReview);
-  };
+      if (textReview.length === 0) {
+        infoMsg = appendInfoMsg(infoMsg, 'Review cannot be blank');
+      }
+      if (pricingValue === 0 || pricingValue.length === 0) {
+        infoMsg = appendInfoMsg(infoMsg, 'Pricing value cannot be blank');
+      }
 
-  const saveReview = async (restaurantReview) => {
-    // console.log(restaurantReview.body);
-    // console.warn(base64Img[1][0].base64);
+      infoMsgRef.current.innerHTML = infoMsg;
+    }
+    else {
+      infoMsgRef.current.innerHTML = '';
+      setSubmitBtnStatus(true);
+
+      const restaurantReview = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          url: '/review/save',
+          restaurantId: restaurantId,
+          textReview: textReview,
+          deliciousnessScore: deliciousnessScore,
+          serviceScore: serviceScore,
+          experienceScore: experienceScore,
+          pricingScore: pricingScore,
+          pricingValue: pricingValue,
+          images: base64Img.length > 0 ? base64Img[1] : [],
+        }),
+      }
+      sendUserReview(restaurantReview);
+    }
+  }
+
+
+  const sendUserReview = async (restaurantReview) => {
     const res = await fetch(
-      "http://localhost:80/api/index.php",
+      'http://localhost:80/api/index.php',
       restaurantReview
     );
 
-
     const data = await res.json();
-    console.log(data['response']);
-    if (Number.isInteger(parseInt(data['response']))) {
-      alert("Review Saved");
+
+    if (res['status'] === 200) {
+      infoMsgRef.current.style.color = "green";
+      infoMsgRef.current.innerHTML = data['response'];
+      changeTextAreaStatus(true);
     }
-  };
+  }
 
 
   return (
-    <form className="" onSubmit={onSubmit}>
-      <div className="form-group">
+    <form className="form-group" onSubmit={handleSubmit}>
+      <div ref={infoMsgRef}></div>
+      <div>
         <textarea
+          readOnly={textAreaStatus}
           name="review"
           maxLength="500"
           onChange={(e) => setTextReview(e.target.value)}
@@ -74,27 +107,27 @@ const RestaurantReview = ({
           placeholder="Add review (500 characters limit)"
         />
       </div>
-      <div className="add-review-form">
-        <div className="item-one-row">
+      <div className="review-form-grid">
+        <div className="review-grid-one-row">
           <sup>{textReview.length}/500</sup>
         </div>
-        <div className="item-two-row">
+        <div className="review-grid-two-row">
           <label>Deliciousness</label>
           <Star onChange={(value) => setDeliciousnessScore(value)} />
         </div>
-        <div className="item-two-row">
+        <div className="review-grid-two-row">
           <label>Service</label>
           <Star onChange={(value) => setServiceScore(value)} />
         </div>
-        <div className="item-two-row">
+        <div className="review-grid-two-row">
           <label>Experience</label>
           <Star onChange={(value) => setExperienceScore(value)} />
         </div>
-        <div className="item-two-row">
+        <div className="review-grid-two-row">
           <label>Pricing</label>
           <Star onChange={(value) => setPricingScore(value)} />
         </div>
-        <div className="item-one-row">
+        <div className="review-grid-one-row">
           <label></label>
           $
           <input
@@ -106,20 +139,20 @@ const RestaurantReview = ({
           />{" "}
           spent
         </div>
-        {/* <div className="item-one-row">
+        {/* <div className="review-grid-one-row">
           <FileBase64
-            type="file"
-            multiple={true}
-            onDone={
-              (base64) => setBase64Img([base64Img, base64])}
-          />
-        </div> */}
-        <div className="item-one-row">
-          <input type="submit" value="Submit" />
+          type="file"
+          multiple={true}
+          onDone={
+            (base64) => setBase64Img([base64Img, base64])}
+            />
+          </div> */}
+        <div className="review-grid-one-row">
+          <input type="submit" value="Submit" disabled={submitIsDisabled} />
         </div>
       </div>
     </form>
   );
-};
+}
 
 export default RestaurantReview;

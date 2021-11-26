@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import RestaurantReview from './RestaurantReview';
 
 const ResturantTab = ({name, phone, address, website, coordinates}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
     const [showPostReview, setShowPostReview] = useState(false)
+    const [restaurantId, setRestaurantId] = useState(0)
     const latitude = coordinates[0]
     const longtitude = coordinates[1]
 
@@ -25,6 +26,71 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
     }, [])
 
 
+    useLayoutEffect(() => {
+        let restaurantInfo = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: JSON.stringify({
+                url: '/restaurant/process',
+                restaurantName: name,
+                restaurantPhone: phone,
+                restaurantAddress: address,
+                restaurantWebsite: website,
+            }),
+        }
+
+        let response = processRestaurant(restaurantInfo);
+        handleResponse(response);
+
+    }, []);
+
+    const processRestaurant = async (restaurantInfo) => {
+        const res = await fetch(
+          'http://localhost:80/api/index.php',
+          restaurantInfo
+        );
+        let data = await res.json();
+
+        return data;
+      }
+
+      const handleResponse = async (data) => {
+        let response = await data;
+        if (response['response'] === 'Restaurant saved' || response['response'] === 'Restaurant found') {
+          let restaurantInfo = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              url: '/restaurant/id',
+              restaurantName: name,
+              restaurantAddress: address,
+            }),
+          }
+
+          data = getRestaurantId(restaurantInfo);
+
+          response = await data;
+          setRestaurantId(response['response']);
+        }
+      }
+
+      const getRestaurantId = async (restaurantInfo) => {
+        const res = await fetch(
+          'http://localhost:80/api/index.php',
+          restaurantInfo
+        );
+
+        const data = await res.json();
+
+        return data;
+      }
+
 
     return (
         <div class="resturaunt-tab-container">
@@ -44,10 +110,7 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
 
                 <button className="" onClick={() => setShowPostReview(!showPostReview)}>{!showPostReview ? 'Post a review' : 'Cancel'}</button>
                 {showPostReview && <RestaurantReview
-                    restaurantName = { name }
-                    restaurantPhone = { phone }
-                    restaurantAddress = { address }
-                    restaurantWebsite = { website }/>}
+                    restaurantId={restaurantId} />}
              </div>
 
         </div>

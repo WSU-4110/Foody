@@ -365,34 +365,34 @@ border-radius: 1rem;
 }
 
 /* Restaurant review start */
-.add-review-form {
+.review-form-grid {
   display: grid;
    grid-template-columns: auto;
    grid-template-rows: auto;
 
   box-sizing: border-box;
   width: 200px;
-  height: 200px;
-  margin-left: auto;
+  height: 270px;
+  margin-left: 20%;
   margin-right: auto;
 
   /* background: rgba(114, 186, 94, 0.05);
   border: 2px dashed rgba(114, 186, 94, 0.35); */
 }
-
-.item-one-row {
+/* grid element spaced in 1 row */
+.review-grid-one-row {
   box-sizing: border-box;
   width: 180px;
   height: 25px;
   /* background: rgba(255, 213, 70, 0.4);
   border: 2px dashed rgba(236, 198, 48, 0.5); */
 }
-
-.item-two-row {
+/* grid element spaced in 2 rows */
+.review-grid-two-row {
   box-sizing: border-box;
   width: 180px;
   height: 50px;
-  /* background: rgba(255, 213, 70, 0.4);
+  /* background: rgba(255, 76, 70, 0.4);
   border: 2px dashed rgba(236, 198, 48, 0.5); */
 }
 
