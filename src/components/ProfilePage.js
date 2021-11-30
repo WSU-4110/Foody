@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import RecentReviews from './RecentReviews';
 import Footer from './Footer';
 import Login from './Login';
+import {Row, Col, Button, Form} from "react-boostrap"
 
 
 
@@ -22,20 +23,40 @@ const ProfilePage = () => {
                 <img className="profile-pic" src="/images/profile-default.svg" alt=""/>
                 <div className="update-container">
                         
-                        <div className="update-form">
-                            <label> Username </label>
-                            <input className="show-info-text" type="text" placeholder="Username" value={email} ></input>
 
-                            <label> Email</label>
-                            <input className="show-info-text" type="text" placeholder="Email" value={username} ></input>
+                <Row>
+                    <Col className="UserProfile">
+                        <Form onsubmit={submitHandler}>
+                            <Form.Group controlId="username"> 
+                            <Form.Label>Username </Form.Label>
+                            <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}> 
+                            </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="email"> 
+                            <Form.Label> Email </Form.Label>
+                            <Form.Control type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}> 
+                            </Form.Control> 
+                            </Form.Group>
+                            <Form.Group controlId="password"> 
+                            <Form.Label> Password </Form.Label>
+                            <Form.Control type="text" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)}> 
+                            </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="pic"> 
+                            <Form.Label>Change Profile Picture</Form.Label>
+                            <Form.File type="image/png" id="custom-file" label="upload Profile Picture" custom onChange={(e) => postDetails(e.target.value)}> 
+                            </Form.File>
+                            </Form.Group>
+                            <Button type="submit" varient="primary">Update</Button>
 
-                            <label> Profile Image </label>
-                            <input className="custom-file-upload" type="file"  ></input>
+                            </Form>
+                        </Col>
+                    <Col className="ProfilePic">Profile Picture <img src={pic} />
+                    </Col>
 
+                </Row>
 
-                            <input className="update-info-submit-button" type="submit" ></input>
-                        </div>
-                
+                        
                 </div>
                 <h2>Review History</h2>
             </div>
