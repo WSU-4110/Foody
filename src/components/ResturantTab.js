@@ -26,26 +26,36 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
     }, [])
 
 
-    useLayoutEffect(() => {
-        let restaurantInfo = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify({
-                url: '/restaurant/process',
-                restaurantName: name,
-                restaurantPhone: phone,
-                restaurantAddress: address,
-                restaurantWebsite: website,
-            }),
-        }
+  // used to refresh restaurantId state variable and use it immediately
+  useEffect(() => {
+    if (restaurantId > 0) {
+      console.log("Post review clicked. Restaurant name: " + name + "; restaurant id: " + restaurantId);
+    }
+  }, [name, restaurantId]);
 
-        let response = processRestaurant(restaurantInfo);
-        handleResponse(response);
+  const handlePostReview = (e) => {
+    e.preventDefault();
 
-    }, []);
+    setShowPostReview(!showPostReview);
+
+    let restaurantInfo = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+      },
+      body: JSON.stringify({
+          url: '/restaurant/process',
+          restaurantName: name,
+          restaurantPhone: phone,
+          restaurantAddress: address,
+          restaurantWebsite: website,
+      }),
+    }
+
+    let response = processRestaurant(restaurantInfo);
+    handleResponse(response);
+  }
 
     const processRestaurant = async (restaurantInfo) => {
         const res = await fetch(
@@ -55,41 +65,43 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
         let data = await res.json();
 
         return data;
-      }
+    }
 
-      const handleResponse = async (data) => {
-        let response = await data;
-        if (response['response'] === 'Restaurant saved' || response['response'] === 'Restaurant found') {
-          let restaurantInfo = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-            },
-            body: JSON.stringify({
-              url: '/restaurant/id',
-              restaurantName: name,
-              restaurantAddress: address,
-            }),
-          }
-
-          data = getRestaurantId(restaurantInfo);
-
-          response = await data;
-          setRestaurantId(response['response']);
+    const handleResponse = async (data) => {
+      let response = await data;
+      if (response['response'] === 'Restaurant saved' || response['response'] === 'Restaurant found') {
+        let restaurantInfo = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            url: '/restaurant/id',
+            restaurantName: name,
+            restaurantAddress: address,
+          }),
         }
+
+        data = getRestaurantId(restaurantInfo);
+
+        response = await data;
+        setRestaurantId(response['response']);
+        console.log("state variable: " + restaurantId);
+        console.log("response: " + response['response']);
       }
+    }
 
-      const getRestaurantId = async (restaurantInfo) => {
-        const res = await fetch(
-          'http://localhost:80/api/index.php',
-          restaurantInfo
-        );
+    const getRestaurantId = async (restaurantInfo) => {
+      const res = await fetch(
+        'http://localhost:80/api/index.php',
+        restaurantInfo
+      );
 
-        const data = await res.json();
+      const data = await res.json();
 
-        return data;
-      }
+      return data;
+    }
 
 
     return (
@@ -108,7 +120,7 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
              <div>
                  <div>Ratings!</div>
 
-                <button className="" onClick={() => setShowPostReview(!showPostReview)}>{!showPostReview ? 'Post a review' : 'Cancel'}</button>
+                <button className="" onClick={handlePostReview}> {!showPostReview ? 'Post a review' : 'Cancel'}</button>
                 {showPostReview && <RestaurantReview
                     restaurantId={restaurantId} />}
              </div>

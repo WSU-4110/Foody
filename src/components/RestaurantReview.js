@@ -76,7 +76,6 @@ const RestaurantReview = ({
     }
   }
 
-
   const sendUserReview = async (restaurantReview) => {
     const res = await fetch(
       'http://localhost:80/api/index.php',
