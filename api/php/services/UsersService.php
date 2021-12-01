@@ -16,7 +16,8 @@ class UsersService {
 		$isUsernameValid = $this->usersDbGateway->checkIfUsernameIsValid($username);
 
 		if(empty($isUsernameValid)){
-			$this->usersDbGateway->registerNewUser($username, $email, $password);
+			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+			$this->usersDbGateway->registerNewUser($username, $email, $hashedPassword);
 			return "Valid username, account created";
 		} else {
 			return "Username is already in use with another account. Try a different username!";
@@ -24,9 +25,9 @@ class UsersService {
 	}
 
 	public function validateUserLoginRequest($username, $password) {
-		$isLoginInformationValid = $this->usersDbGateway->validateUserLoginInformation($username, $password);
-
-		if(!empty($isLoginInformationValid)){
+		$loginInformation = $this->usersDbGateway->getUserLoginInformation($username);
+		
+		if(!empty($loginInformation) && password_verify($password, $loginInformation['password'])){
 			session_start();
 
 			$_SESSION['username'] = $username;
