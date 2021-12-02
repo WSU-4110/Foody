@@ -87,8 +87,6 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
 
         response = await data;
         setRestaurantId(response['response']);
-        console.log("state variable: " + restaurantId);
-        console.log("response: " + response['response']);
       }
     }
 
