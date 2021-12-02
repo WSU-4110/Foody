@@ -2,8 +2,7 @@
 node_modules
 
 # Configuration files 
-src/**/config.js
+src/components/config/config.js
 
 # VSCode
-.vscode
-*.design
+.vscode*.design
