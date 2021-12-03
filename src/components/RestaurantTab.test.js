@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import ResturantTab from './ResturantTab';
 import { Enzyme, shallow, mount } from 'enzyme';
 
+afterEach(() => {
+    cleanup();
+});
 
 it('renders without crashing', () => {
     render(<ResturantTab />);

@@ -1,8 +1,11 @@
-import { render, screen, userEvent } from '@testing-library/react';
+import { render, screen, userEvent, cleanup } from '@testing-library/react';
 import RestaurantReview from './RestaurantReview';
 import { shallow, mount } from 'enzyme';
 import ReactTestUtils from 'react-dom/test-utils';
 
+afterEach(() => {
+    cleanup();
+});
 
 it('renders without crashing', () => {
     render(<RestaurantReview />);
