@@ -34,8 +34,10 @@ const RestaurantPage = () => {
         console.log(data);
     
         setRestaurantReviews(data);
+        console.log(restaurantReviews);
     }
 
+    console.log(restaurantReviews);
     useEffect(() => {
         try {
             restaurantReviewsRequest();

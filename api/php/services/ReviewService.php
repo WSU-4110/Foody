@@ -1,7 +1,7 @@
 <?php
 
 include "php/Dbgateways/ReviewDbGateway.php";
-include "php/services/RestaurantService.php";
+include_once "php/services/RestaurantService.php";
 
 class ReviewService {
     private $reviewDbGateway;
@@ -59,11 +59,11 @@ class ReviewService {
 
         // this should really check if restaurant is null or not
         #TODO: refactoring getRestaurantId method in restaurantService 
-        if($restaurantId == 0) {
+        if(empty($restaurantId)) {
             return "No Reviews For This Restaurant!";
         } 
 
-        $reviews = $this->reviewDbGateway->getRestaurantReviews($restaurantId);
+        $reviews = $this->reviewDbGateway->getRestaurantReviews($restaurantId['restaurantId']);
         return $reviews;
     }
 }
