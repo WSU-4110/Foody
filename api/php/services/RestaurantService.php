@@ -1,6 +1,6 @@
 <?php
 
-include "php/Dbgateways/RestaurantDbGateway.php";
+include_once "php/Dbgateways/RestaurantDbGateway.php";
 
 class RestaurantService {
     private $restaurantDbGateway;
@@ -10,11 +10,9 @@ class RestaurantService {
     }
 
     public function validateRestaurant (string $restaurantName, string $restaurantAddress) {
-        $restaurantId = null;
 
         $restaurantId = $this->restaurantDbGateway->getRestaurantId($restaurantName, $restaurantAddress);
-        if (!isset($restaurantId)) {
-
+        if (empty($restaurantId)) {
             return "Restaurant not found";
         }
         else {

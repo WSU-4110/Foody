@@ -1,6 +1,6 @@
 <?php
 
-include "php/services/RestaurantService.php";
+include_once "php/services/RestaurantService.php";
 
 class RestaurantController {
     private $restaurantService;

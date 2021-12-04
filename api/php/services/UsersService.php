@@ -26,7 +26,7 @@ class UsersService {
 
 	public function validateUserLoginRequest($username, $password) {
 		$loginInformation = $this->usersDbGateway->getUserLoginInformation($username);
-		
+
 		if(!empty($loginInformation) && password_verify($password, $loginInformation['password'])){
 			session_start();
 
@@ -39,6 +39,17 @@ class UsersService {
 			return "Invalid username or password! Please try again.";
 		}
 
+	}
+
+	public function getUserId (string $username) {
+		$userId = $this->usersDbGateway->getUserId($username);
+
+		if (empty($userId['userId'])) {
+			return "No user id found for '$username'";
+		}
+		else {
+			return $userId;
+		}
 	}
 
 }

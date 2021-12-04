@@ -25,10 +25,15 @@ class RestaurantDbGateway {
                     restaurant_address = '$restaurantAddress';";
 
         $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
 
-        $restaurant = mysqli_fetch_assoc($result)["result"];
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
 
-        return $restaurant;
+        return $output;
     }
 
     public function getRestaurantId (string $restaurantName, string $restaurantAddress) {
@@ -48,7 +53,7 @@ class RestaurantDbGateway {
          while($row = mysqli_fetch_assoc($result)) {
              $output['restaurantId'] = $row["restaurant_id"];
          }
-       } 
+       }
 
       return $output;
     }

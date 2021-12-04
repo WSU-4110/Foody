@@ -1,22 +1,24 @@
 <?php
 
-include "php/Dbgateways/ReviewDbGateway.php";
+
+include_once "php/Dbgateways/ReviewDbGateway.php";
 include_once "php/services/RestaurantService.php";
+include_once "php/services/UsersService.php";
 
 class ReviewService {
     private $reviewDbGateway;
     private $restaurantService;
+    private $usersService;
 
     public function __construct() {
         $this->reviewDbGateway = new ReviewDbGateway();
         $this->restaurantService = new RestaurantService();
+        $this->usersService = new UsersService();
     }
 
     public function validateReview(int $userId, int $restaurantId) {
-        $reviewId = null;
-
         $reviewId = $this->reviewDbGateway->getReviewId($userId, $restaurantId);
-        if (!isset($reviewId)) {
+        if (empty($reviewId)) {
             return "Review not found";
         }
         else {
@@ -24,18 +26,24 @@ class ReviewService {
         }
     }
 
-    public function processReview (int $restaurantId, string $textReview, int $deliciousnessScore, int $serviceScore, int $experienceScore, int $pricingScore, float $pricingValue, array $images) {
+    public function processReview (array $restaurantData, array $reviewData, array $images) {
+        $restaurantExists = $this->restaurantService->validateRestaurant($restaurantData['name'], $restaurantData['address']);
+        if ($restaurantExists == "Restaurant not found") {
+            $this->restaurantService->saveRestaurant($restaurantData['name'], $restaurantData['address'], $restaurantData['phone'], $restaurantData['website']);
+        }
+        $restaurantId = $this->restaurantService->getRestaurantId($restaurantData['name'], $restaurantData['address'])['restaurantId'];
+
+        // $userId = $this->usersService->getUserId($_SESSION['username'])['userId'];
         $userId = 0;
 
         $checkReview = $this->validateReview($userId, $restaurantId);
-        // TODO: add code to retrieve user id
 
         if ($checkReview == "Review not found") {
-            $this->reviewDbGateway->saveReview($userId, $restaurantId, $textReview, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
+            $this->reviewDbGateway->saveReview($userId, $restaurantId, $reviewData['textReview'], $reviewData['deliciousnessScore'], $reviewData['serviceScore'], $reviewData['experienceScore'], $reviewData['pricingScore'], $reviewData['pricingValue']);
             return "Review saved";
         }
         else {
-            $this->reviewDbGateway->updateReview($userId, $restaurantId, $textReview, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue);
+            $this->reviewDbGateway->updateReview($userId, $restaurantId, $reviewData['textReview'], $reviewData['deliciousnessScore'], $reviewData['serviceScore'], $reviewData['experienceScore'], $reviewData['pricingScore'], $reviewData['pricingValue']);
             return "Review updated";
         }
 
@@ -43,11 +51,11 @@ class ReviewService {
     }
 
     public function getReviewId(int $userid, int $restaurantId) {
-        $restaurantId = $this->reviewDbGateway->getReviewId($userId, $restaurantId);
+        $reviewId = $this->reviewDbGateway->getReviewId($userId, $restaurantId);
     }
 
     public function saveReviewImages (int $reviewId, array $images) {
-        if (count($images) > 0) {
+        if (!empty($images)) {
             foreach ($images as $image) {
                 $this->reviewDbGateway->saveReviewImage($reviewId, $image->name, $image->type, $image->size, $image->base64);
             }
@@ -58,10 +66,10 @@ class ReviewService {
         $restaurantId = $this->restaurantService->getRestaurantId($restaurantName, $restaurantAddress);
 
         // this should really check if restaurant is null or not
-        #TODO: refactoring getRestaurantId method in restaurantService 
+        #TODO: refactoring getRestaurantId method in restaurantService
         if(empty($restaurantId)) {
             return "No Reviews For This Restaurant!";
-        } 
+        }
 
         $reviews = $this->reviewDbGateway->getRestaurantReviews($restaurantId['restaurantId']);
         return $reviews;

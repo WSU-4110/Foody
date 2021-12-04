@@ -19,10 +19,15 @@ class ReviewDbGateway {
                 AND restaurant_id = $restaurantId;";
 
         $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
 
-        $reviewId = mysqli_fetch_assoc($result)["review_id"];
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $output['reviewId'] = $row["review_id"];
+            }
+        }
 
-        return $reviewId;
+        return $output;
     }
 
     public function getReview (int $userId, int $restaurantid) {
@@ -42,11 +47,17 @@ class ReviewDbGateway {
                 WHERE user_id = $userId
                 AND restaurant_id = $restaurantId;";
 
-        $this->dbConnection->returnQuery($sql);
 
-        $review = mysqli_fetch_assoc($result);
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
 
-        return $review;
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
     }
 
     public function updateReview (int $userId, int $restaurantId, string $review, int $deliciousnessScore, int $serviceScore, int $experienceScore, int $pricingScore, float $pricingValue) {
@@ -99,6 +110,8 @@ class ReviewDbGateway {
         $sql = "DELETE FROM foody.restaurant_review 
                 WHERE
                     review_id = $reviewId";
+
+        $this->dbConnection->returnQuery($sql);
     }
 
     public function getUserReviews (int $userId) {
@@ -123,6 +136,17 @@ class ReviewDbGateway {
           ON r.restaurant_id = rr.restaurant_id
         WHERE
           rr.user_id = $userId";
+
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
     }
 
     public function saveReviewImage (int $reviewId, string $imageName, string $imageSize, string $imageType, string $image) {

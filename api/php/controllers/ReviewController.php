@@ -1,6 +1,7 @@
 <?php
 
-include "php/services/ReviewService.php";
+include_once "php/services/ReviewService.php";
+include_once "php/services/RestaurantService.php";
 
 class ReviewController {
     private $reviewService;
@@ -11,16 +12,23 @@ class ReviewController {
     }
 
     public function saveUserReview ($data) {
-        $restaurantId = (int)$data->restaurantId;
-        $textReview = (string)$data->textReview;
-        $deliciousnessScore = (int)$data->deliciousnessScore;
-        $serviceScore = (int)$data->serviceScore;
-        $experienceScore = (int)$data->experienceScore;
-        $pricingScore = (int)$data->pricingScore;
-        $pricingValue = (float)$data->pricingValue;
+        $restaurantData = array(
+            'name' => (string)$data->restaurantName,
+            'phone' => (string)$data->restaurantPhone,
+            'address' => (string)$data->restaurantAddress,
+            'website' => (string)$data->restaurantWebsite
+        );
+        $reviewData = array(
+            'textReview' => (string)$data->textReview,
+            'deliciousnessScore' => (int)$data->deliciousnessScore,
+            'serviceScore' => (int)$data->serviceScore,
+            'experienceScore' => (int)$data->experienceScore,
+            'pricingScore' => (int)$data->pricingScore,
+            'pricingValue' => (float)$data->pricingValue
+        );
         $images = (array)$data->images;
 
-        $response['response'] = $this->reviewService->processReview($restaurantId, $textReview, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore, $pricingValue, $images);
+        $response['response'] = $this->reviewService->processReview($restaurantData, $reviewData, $images);
 
         return json_encode($response);
     }

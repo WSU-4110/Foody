@@ -3,8 +3,12 @@ import { Star } from 'react-star';
 import FileBase64 from 'react-file-base64';
 
 const RestaurantReview = ({
-  restaurantId
+  restaurantName,
+  restaurantPhone,
+  restaurantAddress,
+  restaurantWebsite
 }) => {
+  // const [restaurantId, setRestaurantId] = useState(0)
   const [textReview, setTextReview] = useState('');
   const [deliciousnessScore, setDeliciousnessScore] = useState(0);
   const [serviceScore, setServiceScore] = useState(0);
@@ -17,6 +21,8 @@ const RestaurantReview = ({
 
   const infoMsgRef = useRef();
 
+
+  // review functions start
   const appendInfoMsg = (string, addString) => {
     let processedString = '';
 
@@ -32,7 +38,6 @@ const RestaurantReview = ({
     }
       return processedString;
   }
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +67,10 @@ const RestaurantReview = ({
         },
         body: JSON.stringify({
           url: '/review/save',
-          restaurantId: restaurantId,
+          restaurantName: restaurantName,
+          restaurantPhone: restaurantPhone,
+          restaurantAddress: restaurantAddress,
+          restaurantWebsite: restaurantWebsite,
           textReview: textReview,
           deliciousnessScore: deliciousnessScore,
           serviceScore: serviceScore,
@@ -90,7 +98,7 @@ const RestaurantReview = ({
       changeTextAreaStatus(true);
     }
   }
-
+  // review functions end
 
   return (
     <form className="form-group" onSubmit={handleSubmit}>

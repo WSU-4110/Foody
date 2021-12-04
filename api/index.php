@@ -47,12 +47,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else if($data->url == "/user/login") {
 		$userController = new UsersController();
 		echo $userController->userLoginRequest($data);
-	} else if ($data->url == "/restaurant/process") {
-		$restaurantController = new RestaurantController();
-		echo $restaurantController->saveRestaurant($data);
-	} else if ($data->url =="/restaurant/id") {
-		$restaurantController = new RestaurantController();
-		echo $restaurantController->getRestaurantId($data);
 	} else if ($data->url == "/review/save") {
 		$reviewController = new ReviewController();
 		echo $reviewController->saveUserReview($data);

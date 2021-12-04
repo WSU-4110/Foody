@@ -74,4 +74,24 @@ class UsersDbGateway {
 
         return $output;
     }
+
+    public function getUserId (string $username) {
+        $sql = "SELECT
+                  user_id
+                FROM foody.user
+                WHERE username = '$username'
+                ";
+
+
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $output['userId'] = $row['user_id'];
+            }
+        }
+
+        return $output;
+    }
 }
