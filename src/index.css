@@ -421,3 +421,20 @@ input[name='pricingValue']  {
   z-index: 0;
   text-align: left;
 }
+
+.restaurant-page-container {
+
+}
+
+
+.resturaunt-page-tab-container {
+  padding: 4rem;
+  padding-bottom: 7rem;
+  border-radius: 5px;
+  width: auto;
+  /* margin: 0 auto; */
+  margin-bottom: 2rem;
+  display: flex;
+  border: solid 1px lightgrey;
+  justify-content: space-evenly;
+}
