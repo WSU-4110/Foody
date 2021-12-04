@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 const RestaurantPage = () => {
     const location = useLocation();
     const restaurantInfo = location.state;
-    const [userReviews, setUserReviews] = useState([]);
+    const [restaurantReviews, setRestaurantReviews] = useState([]);
 
 
 
@@ -16,29 +16,29 @@ const RestaurantPage = () => {
     // restaurantPhone: phone,
     // restaurantAddress: address,
     // restaurantWebsite: website
-    // const restaurantRequestInfo = {
-    //     method: 'GET',
-    //     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-    //     body: JSON.stringify({
-    //         url: '/restaurant/reviews',
-    //         restaurantName: restaurantInfo.restaurantName,
-    //         restaurantAddress: restaurantInfo.restaurantAddress
-    //      })
-    // }
+    // body: JSON.stringify({
+    //     url: '/restaurant/reviews',
+    //     restaurantName: restaurantInfo.restaurantName,
+    //     restaurantAddress: restaurantInfo.restaurantAddress
+    //  })
+    const restaurantRequestInfo = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+    }
     
 
-    const userReviewsRequest = async() => {
-        const res = await fetch(`http://localhost:80/api/index.php?restaurantName=${restaurantInfo.restaurantName}&restaurantAddress=${restaurantInfo.restaurantAddress}`)
+    const restaurantReviewsRequest = async() => {
+        const res = await fetch(`http://localhost:80/api/index.php?action=reviews&restaurantName=${restaurantInfo.restaurantName}&restaurantAddress=${restaurantInfo.restaurantAddress}`, restaurantRequestInfo)
         console.log(res);
         const data = await res.json()
         console.log(data);
     
-        setUserReviews(data);
+        setRestaurantReviews(data);
     }
 
     useEffect(() => {
         try {
-            userReviewsRequest();
+            restaurantReviewsRequest();
         } catch (e) {
             console.log(e);
         }

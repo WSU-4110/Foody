@@ -24,4 +24,17 @@ class ReviewController {
 
         return json_encode($response);
     }
+
+    public function getRestaurantReviews() {
+        $restaurantName = $_GET['restaurantName'];
+		$restaurantAddress = $_GET['restaurantAddress'];
+
+        $response['response'] = $this->reviewService->getRestaurantReviews($restaurantName, $restaurantAddress);
+
+
+		// echo json_encode($response);
+		return json_encode($response);
+
+    }
+
 }

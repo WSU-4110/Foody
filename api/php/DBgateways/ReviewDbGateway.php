@@ -131,4 +131,33 @@ class ReviewDbGateway {
 
         $this->dbConnection->returnQuery($sql);
     }
+
+    public function getRestaurantReviews($restaurantId) {
+        $sql = "SELECT 
+                user.username,
+                restaurant_review.review,
+                restaurant_review.deliciousness_score,
+                restaurant_review.service_score,
+                restaurant_review.experience_score,
+                restaurant_review.pricing_score,
+                restaurant_review.pricing_value,
+                restaurant_review.update_date
+                FROM restaurant_review
+                JOIN user ON restaurant_review.user_id = user.user_id
+                WHERE restaurant_review.restaurant_id = '$restaurantId'
+               ";
+
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        } else {
+            return "No Reviews For This Restaurant!";
+        }
+
+        return $output;
+    }
 }

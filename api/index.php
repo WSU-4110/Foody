@@ -20,6 +20,8 @@ $data = json_decode($requestBodyJson);
 // echo $data->username;
 // echo $data->url;
 
+// print_r($_GET);
+
 
 
 if($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -27,13 +29,12 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 		session_start();
 		session_unset();
 		session_destroy();
+	} else if ($_GET['action'] == "reviews") {
+		// $restaurantName = $_GET['restaurantName'];
+		// $restaurantAddress = $_GET['restaurantAddress'];
+		$reviewController = new ReviewController();
+		echo $reviewController->getRestaurantReviews();
 	}
-
-	// } else if($_GET['action'] == 'yelpApiRequest') {
-	// 	$result = file_get_contents('https://api.yelp.com/v3/businesses/search?location=detroit')
-
-   	// 	 return $result;
-	// }
 }
 
 

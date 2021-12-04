@@ -1,12 +1,15 @@
 <?php
 
 include "php/Dbgateways/ReviewDbGateway.php";
+include "php/services/RestaurantService.php";
 
 class ReviewService {
     private $reviewDbGateway;
+    private $restaurantService;
 
     public function __construct() {
         $this->reviewDbGateway = new ReviewDbGateway();
+        $this->restaurantService = new RestaurantService();
     }
 
     public function validateReview(int $userId, int $restaurantId) {
@@ -49,5 +52,18 @@ class ReviewService {
                 $this->reviewDbGateway->saveReviewImage($reviewId, $image->name, $image->type, $image->size, $image->base64);
             }
         }
+    }
+
+    public function getRestaurantReviews($restaurantName, $restaurantAddress) {
+        $restaurantId = $this->restaurantService->getRestaurantId($restaurantName, $restaurantAddress);
+
+        // this should really check if restaurant is null or not
+        #TODO: refactoring getRestaurantId method in restaurantService 
+        if($restaurantId == 0) {
+            return "No Reviews For This Restaurant!";
+        } 
+
+        $reviews = $this->reviewDbGateway->getRestaurantReviews($restaurantId);
+        return $reviews;
     }
 }
