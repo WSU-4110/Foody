@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import Navigation from './Navigation';
 import MapForOneRestaurant from './MapForOneRestaurant';
-import UserReviews from './UserReviews';
+import UserReview from './UserReview';
 import { useState, useEffect } from 'react';
 
 const RestaurantPage = () => {
@@ -33,7 +33,7 @@ const RestaurantPage = () => {
         const data = await res.json()
         console.log(data);
     
-        setRestaurantReviews(data);
+        setRestaurantReviews(data.response);
         console.log(restaurantReviews);
     }
 
@@ -65,6 +65,21 @@ const RestaurantPage = () => {
                 <div>
                     <h1 className="reviews-title">Reviews</h1>
                  </div>
+
+                <div>
+                    {restaurantReviews.map((userReview) =>
+                    <UserReview 
+                    username={userReview.username} 
+                    textReview={userReview.review} 
+                    date={userReview.update_date} 
+                    deliciousness={userReview.deliciousness_score} 
+                    experience={userReview.experience_score}
+                    pricingScore={userReview.pricing_score}
+                    pricingValue={userReview.pricing_value}
+                    service={userReview.service_score}
+                    />)}
+                </div>
+               
                 
 
             </div>
