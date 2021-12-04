@@ -7,8 +7,8 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
     const [showPostReview, setShowPostReview] = useState(false)
     const [restaurantId, setRestaurantId] = useState(0)
-  
     const history = useHistory();
+    
     // const bingMapApiRequest = async () => {
     //     const res = await fetch(`http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/${latitude}, ${longtitude}/16?mapSize=300,300&pp=${latitude}, ${longtitude};47&mapLayer=Basemap,Buildings&key=${BEARER_TOKEN}`)
     //     console.log(res)

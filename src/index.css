@@ -423,7 +423,7 @@ input[name='pricingValue']  {
 }
 
 .restaurant-page-container {
-
+  width: 60%;
 }
 
 
@@ -432,9 +432,15 @@ input[name='pricingValue']  {
   padding-bottom: 7rem;
   border-radius: 5px;
   width: auto;
+  margin-left: 2rem;
   /* margin: 0 auto; */
-  margin-bottom: 2rem;
+  margin-top: 5rem;
   display: flex;
   border: solid 1px lightgrey;
   justify-content: space-evenly;
+}
+
+.reviews-title {
+  text-align: center;
+  
 }
