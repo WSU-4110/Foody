@@ -141,7 +141,7 @@ class ReviewDbGateway {
                 restaurant_review.experience_score,
                 restaurant_review.pricing_score,
                 restaurant_review.pricing_value,
-                restaurant_review.update_date
+                DATE_FORMAT(restaurant_review.update_date, '%m-%d-%Y') AS update_date
                 FROM restaurant_review
                 JOIN user ON restaurant_review.user_id = user.user_id
                 WHERE restaurant_review.restaurant_id = '$restaurantId'

@@ -32,8 +32,11 @@ const RestaurantPage = () => {
         console.log(res);
         const data = await res.json()
         console.log(data);
-    
-        setRestaurantReviews(data.response);
+
+        if(data.response !== 'No Reviews For This Restaurant!') {
+            setRestaurantReviews(data.response);
+        }
+       
         console.log(restaurantReviews);
     }
 
@@ -67,7 +70,9 @@ const RestaurantPage = () => {
                  </div>
 
                 <div>
-                    {restaurantReviews.map((userReview) =>
+                    {restaurantReviews.length >= 1 ? 
+                    
+                    restaurantReviews.map((userReview) =>
                     <UserReview 
                     username={userReview.username} 
                     textReview={userReview.review} 
@@ -77,7 +82,9 @@ const RestaurantPage = () => {
                     pricingScore={userReview.pricing_score}
                     pricingValue={userReview.pricing_value}
                     service={userReview.service_score}
-                    />)}
+                    />) 
+                    : <div> </div>
+                    }
                 </div>
                
                 

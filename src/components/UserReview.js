@@ -1,38 +1,51 @@
-import React from 'react'
+import React from 'react';
+import { Star } from 'react-star';
 
 const UserReview = ({username, textReview, date, deliciousness, experience, pricingScore, pricingValue, service}) => {
     return (
-        <div>
-            
-            <div>
-                {username}
+        <div className="user-review-container">
+
+            <div className="username-and-date">
+                <div className="user-review-username">
+                        {username}
+                </div>
+
+                <div className="review-date">
+                        {date}
+                </div>
             </div>
+
+          
+           
 
             <div>
                 {textReview}
             </div>
 
+         
+
             <div>
-                {date}
+                Deliciousness: 
+                <Star readOnly={true} defaultValue={deliciousness}/>
             </div>
 
             <div>
-                {deliciousness}
+                Service: 
+                <Star readOnly={true} defaultValue={service}/>
             </div>
 
             <div>
-                {experience}
+                Experience: 
+                <Star readOnly={true} defaultValue={experience}/>
             </div>
 
             <div>
-                {pricingScore}
+                Pricing: 
+                <Star readOnly={true} defaultValue={pricingScore}/>
             </div>
 
             <div>
-                {service}
-            </div>
-            
-            <div>
+                Money Spent: 
                 {pricingValue}
             </div>
 
