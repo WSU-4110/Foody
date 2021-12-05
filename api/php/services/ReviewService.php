@@ -65,6 +65,9 @@ class ReviewService {
     public function getRestaurantReviews($restaurantName, $restaurantAddress) {
         $restaurantId = $this->restaurantService->getRestaurantId($restaurantName, $restaurantAddress);
 
+        // $session = Session::getInstance();
+        // echo $session->__get('username');
+
         // this should really check if restaurant is null or not
         #TODO: refactoring getRestaurantId method in restaurantService
         if(empty($restaurantId)) {
@@ -73,5 +76,29 @@ class ReviewService {
 
         $reviews = $this->reviewDbGateway->getRestaurantReviews($restaurantId['restaurantId']);
         return $reviews;
+    }
+
+    public function updateReviewLikes($username, $reviewId) {
+        $userIdArray = $this->usersService->getUserId($username);
+        $userId = $userIdArray['userId'];
+
+        $didUserLikeThisReviewAlready = $this->reviewDbGateway->getUserLikedReview($userId, $reviewId);
+        //print_r($didUserLikeThisReviewAlready);
+
+        if(empty($didUserLikeThisReviewAlready)) {
+            $this->reviewDbGateway->insertNewUserLike($userId, $reviewId);
+        } 
+        
+        if($didUserLikeThisReviewAlready[0]['is_liked'] == "yes") {
+            $this->reviewDbGateway->unlikeUserReview($userId, $reviewId);
+        } else {
+            $this->reviewDbGateway->likeUserReview($userId, $reviewId);
+        }
+
+        return $this->reviewDbGateway->getReviewLikes($reviewId);
+    }
+
+    public function getReviewLikes($reviewId) {
+        return $this->reviewDbGateway->getReviewLikes($reviewId);
     }
 }

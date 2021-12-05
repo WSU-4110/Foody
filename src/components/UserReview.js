@@ -1,7 +1,58 @@
 import React from 'react';
 import { Star } from 'react-star';
+import { useEffect, useState } from 'react';
 
-const UserReview = ({username, textReview, date, deliciousness, experience, pricingScore, pricingValue, service}) => {
+const UserReview = ({username, textReview, date, deliciousness, experience, pricingScore, pricingValue, service, reviewId}) => {
+    const [reviewLikes, setReviewLikes] = useState(0);
+
+    const likeReviewInformation = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          url: '/review/like',
+          reviewId: reviewId,
+          username: localStorage.getItem('username')
+        }),
+    }
+
+    console.log(localStorage.getItem('username'));
+
+    const likeReviewRequest = async() => {
+        const res = await fetch(`http://localhost:80/api/index.php`, likeReviewInformation)
+        console.log(res);
+        const data = await res.json()
+        console.log(data);
+        setReviewLikes(data.response[0].likes);
+    }
+
+    const reviewInformation = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        }
+    }
+
+    const getReviewLikes = async() => {
+        const res = await fetch(`http://localhost:80/api/index.php?action=getLikes&reviewId=${reviewId}`, reviewInformation)
+        console.log(res);
+        const data = await res.json()
+        console.log(data);
+
+        setReviewLikes(data.response[0].likes);
+    }
+
+    useEffect(() => {
+        try {
+            getReviewLikes();
+        } catch (e) {
+            console.log(e);
+        }
+    }, []) 
+
     return (
         <div className="user-review-container">
 
@@ -52,8 +103,8 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
 
 
             <div className="like-dislike-buttons">
-            <i className='bx bx-like like-button' ></i>
-            <i className='bx bx-dislike dislike-button' ></i>
+                {reviewLikes}
+            <i className='bx bx-like like-button' onClick={() => likeReviewRequest()}></i>
             </div>
            
         </div>

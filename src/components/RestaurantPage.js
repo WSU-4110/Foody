@@ -82,6 +82,7 @@ const RestaurantPage = () => {
                     pricingScore={userReview.pricing_score}
                     pricingValue={userReview.pricing_value}
                     service={userReview.service_score}
+                    reviewId={userReview.review_id}
                     />) 
                     : <div> </div>
                     }

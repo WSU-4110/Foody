@@ -34,6 +34,9 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 		// $restaurantAddress = $_GET['restaurantAddress'];
 		$reviewController = new ReviewController();
 		echo $reviewController->getRestaurantReviews();
+	} else if($_GET['action'] == "getLikes") {
+		$reviewController = new ReviewController();
+		echo $reviewController->getReviewLikes();
 	}
 }
 
@@ -50,6 +53,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else if ($data->url == "/review/save") {
 		$reviewController = new ReviewController();
 		echo $reviewController->saveUserReview($data);
+	} else if($data->url == "/review/like") {
+		$reviewController = new ReviewController();
+		echo $reviewController->updateReviewLikes($data);
 	}
 }
 

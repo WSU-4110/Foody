@@ -185,4 +185,77 @@ class ReviewDbGateway {
 
         return $output;
     }
+
+    public function getUserLikedReview($userId, $reviewId) {
+        $sql = "SELECT 
+                *
+                FROM review_likes
+                WHERE user_id = '$userId'
+                AND review_id = '$reviewId'
+        ";
+
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
+    }
+
+    public function insertNewUserLike($userId, $reviewId) {
+        $sql = "INSERT INTO review_likes 
+                ( user_id, 
+                  review_id, 
+                  is_liked 
+                ) VALUES ( 
+                '$userId',
+                '$reviewId',
+                'yes'
+                )";
+
+        $result = $this->dbConnection->returnQuery($sql);
+    }
+
+    public function unlikeUserReview($userId, $reviewId) {
+        $sql = "UPDATE review_likes 
+                SET is_liked = 'no'
+                WHERE  user_id = '$userId'
+                AND review_id = '$reviewId'
+                ";
+
+        $result = $this->dbConnection->returnQuery($sql);
+    }
+
+    public function likeUserReview($userId, $reviewId) {
+        $sql = "UPDATE review_likes 
+                SET is_liked = 'yes'
+                WHERE  user_id = '$userId'
+                AND review_id = '$reviewId'
+                ";
+
+        $result = $this->dbConnection->returnQuery($sql);
+    }
+
+    public function getReviewLikes($reviewId) {
+        $sql = "SELECT  
+                COUNT(*) AS likes
+                FROM review_likes
+                WHERE review_likes.review_id = '$reviewId'
+                AND review_likes.is_liked = 'yes'
+                ";
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
+    }
 }

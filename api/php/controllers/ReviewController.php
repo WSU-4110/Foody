@@ -45,4 +45,20 @@ class ReviewController {
 
     }
 
+    public function updateReviewLikes($data) {
+        $username = $data->username;
+        $reviewId = $data->reviewId;
+
+        $response['response'] = $this->reviewService->updateReviewLikes($username, $reviewId);
+
+        return json_encode($response);
+    }
+
+    public function getReviewLikes() {
+        $reviewId = $_GET['reviewId'];
+        $response['response'] = $this->reviewService->getReviewLikes($reviewId);
+
+        return json_encode($response);
+    }
+
 }
