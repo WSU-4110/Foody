@@ -16,39 +16,45 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
             </div>
 
           
-           
-
-            <div>
+            <div className="text-review">
                 {textReview}
             </div>
 
-         
-
             <div>
-                Deliciousness: 
-                <Star readOnly={true} defaultValue={deliciousness}/>
+                <div className="rating-container">
+                    <div className="rating-attribute-title">
+                        Deliciousness: 
+                    </div>
+
+                    <Star readOnly={true} defaultValue={deliciousness}/>
+                </div>
+
+                <div className="rating-attribute-title">
+                    Service: 
+                    <Star readOnly={true} defaultValue={service}/>
+                </div>
+
+                <div className="rating-attribute-title">
+                    Experience: 
+                    <Star readOnly={true} defaultValue={experience}/>
+                </div>
+
+                <div className="rating-attribute-title">
+                    Pricing: 
+                    <Star readOnly={true} defaultValue={pricingScore}/>
+                </div>
+
+                <div className="rating-attribute-title">
+                    Money Spent: $
+                    {pricingValue}
+                </div>
             </div>
 
-            <div>
-                Service: 
-                <Star readOnly={true} defaultValue={service}/>
-            </div>
 
-            <div>
-                Experience: 
-                <Star readOnly={true} defaultValue={experience}/>
+            <div className="like-dislike-buttons">
+            <i className='bx bx-like like-button' ></i>
+            <i className='bx bx-dislike dislike-button' ></i>
             </div>
-
-            <div>
-                Pricing: 
-                <Star readOnly={true} defaultValue={pricingScore}/>
-            </div>
-
-            <div>
-                Money Spent: 
-                {pricingValue}
-            </div>
-
            
         </div>
     )

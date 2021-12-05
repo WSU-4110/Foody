@@ -454,8 +454,8 @@ input[name='pricingValue']  {
 }
 
 .user-review-container {
-  padding: 4rem;
-  padding-bottom: 7rem;
+  padding: 3rem;
+  padding-bottom: 2rem;
   border-radius: 5px;
   width: auto;
   margin-left: 2rem;
@@ -478,4 +478,37 @@ input[name='pricingValue']  {
   font-weight: bolder;
   margin-top: 0.5em;
   padding-left: 3rem;
+}
+
+.like-dislike-buttons {
+   text-align: left;
+   font-size: xx-large;
+}
+
+.like-button {
+  padding-right: 1rem;
+}
+
+.like-button:hover{
+  color: green;
+}
+
+.dislike-button:hover {
+  color: red;
+}
+
+.rating-attribute-title {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+}
+
+.text-review {
+  font-size: large;
+  font-weight: bold;
+  padding: 1rem;
 }

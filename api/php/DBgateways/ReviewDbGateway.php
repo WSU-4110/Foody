@@ -160,6 +160,7 @@ class ReviewDbGateway {
         $sql = "SELECT 
                 user.username,
                 restaurant_review.review,
+                restaurant_review.review_id,
                 restaurant_review.deliciousness_score,
                 restaurant_review.service_score,
                 restaurant_review.experience_score,
