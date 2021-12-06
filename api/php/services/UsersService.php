@@ -57,7 +57,7 @@ class UsersService {
 			return "No user id found for '$username'";
 		}
 		else {
-			return $userId;
+			return $userId['userId'];
 		}
 	}
 

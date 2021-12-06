@@ -8,14 +8,13 @@ const RestaurantReview = ({
   restaurantAddress,
   restaurantWebsite
 }) => {
-  // const [restaurantId, setRestaurantId] = useState(0)
   const [textReview, setTextReview] = useState('');
   const [deliciousnessScore, setDeliciousnessScore] = useState(0);
   const [serviceScore, setServiceScore] = useState(0);
   const [experienceScore, setExperienceScore] = useState(0);
   const [pricingScore, setPricingScore] = useState(0);
   const [pricingValue, setPricingValue] = useState(0);
-  const [base64Img, setBase64Img] = useState([]);
+  const [images, setImages] = useState([]);
   const [textAreaStatus, changeTextAreaStatus] = useState(false);
   const [submitIsDisabled, setSubmitBtnStatus] = useState(false);
 
@@ -57,7 +56,7 @@ const RestaurantReview = ({
     }
     else {
       infoMsgRef.current.innerHTML = '';
-      setSubmitBtnStatus(true);
+      // setSubmitBtnStatus(true);
 
       const restaurantReview = {
         method: 'POST',
@@ -67,6 +66,7 @@ const RestaurantReview = ({
         },
         body: JSON.stringify({
           url: '/review/save',
+          username: localStorage.getItem('username'),
           restaurantName: restaurantName,
           restaurantPhone: restaurantPhone,
           restaurantAddress: restaurantAddress,
@@ -77,8 +77,8 @@ const RestaurantReview = ({
           experienceScore: experienceScore,
           pricingScore: pricingScore,
           pricingValue: pricingValue,
-          images: base64Img.length > 0 ? base64Img[1] : [],
-        }),
+          images: images.length > 0 ? images[0] : [],
+        })
       }
       sendUserReview(restaurantReview);
     }
@@ -146,14 +146,14 @@ const RestaurantReview = ({
           />{" "}
           spent
         </div>
-        {/* <div className="review-grid-one-row">
-          <FileBase64
+        <div className="review-grid-one-row">
+           <FileBase64
           type="file"
           multiple={true}
           onDone={
-            (base64) => setBase64Img([base64Img, base64])}
+            (base64) => setImages([base64])}
             />
-          </div> */}
+          </div>
         <div className="review-grid-one-row">
           <input type="submit" value="Submit" disabled={submitIsDisabled} />
         </div>

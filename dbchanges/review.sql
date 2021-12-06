@@ -25,7 +25,7 @@ CREATE TABLE foody.review_image (
   image_name VARCHAR(200),
   image_size VARCHAR(50),
   image_type VARCHAR(50),
-  image_encoded TEXT CHARACTER SET ascii COLLATE ascii_bin,
+  image_encoded LONGTEXT CHARACTER SET ascii COLLATE ascii_bin,
   post_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (image_id),
   KEY (review_id)

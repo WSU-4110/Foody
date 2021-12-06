@@ -33,31 +33,42 @@ class ReviewService {
         }
         $restaurantId = $this->restaurantService->getRestaurantId($restaurantData['name'], $restaurantData['address'])['restaurantId'];
 
-        // $userId = $this->usersService->getUserId($_SESSION['username'])['userId'];
-        $userId = 0;
+        $userId = $this->usersService->getUserId($reviewData['username']);
 
         $checkReview = $this->validateReview($userId, $restaurantId);
 
         if ($checkReview == "Review not found") {
             $this->reviewDbGateway->saveReview($userId, $restaurantId, $reviewData['textReview'], $reviewData['deliciousnessScore'], $reviewData['serviceScore'], $reviewData['experienceScore'], $reviewData['pricingScore'], $reviewData['pricingValue']);
-            return "Review saved";
+            $result = "Review saved";
         }
         else {
             $this->reviewDbGateway->updateReview($userId, $restaurantId, $reviewData['textReview'], $reviewData['deliciousnessScore'], $reviewData['serviceScore'], $reviewData['experienceScore'], $reviewData['pricingScore'], $reviewData['pricingValue']);
-            return "Review updated";
+            $result = "Review updated";
         }
 
+        $reviewId = $this->getReviewId($userId, $restaurantId);
+
+        $this->saveReviewImages($reviewId, $images);
+
         // TODO: retrieve review id, save images (sprint 3)
+        return $result;
     }
 
-    public function getReviewId(int $userid, int $restaurantId) {
+    public function getReviewId(int $userId, int $restaurantId) {
         $reviewId = $this->reviewDbGateway->getReviewId($userId, $restaurantId);
+
+        if (empty($reviewId)) {
+            return "No review found";
+        }
+        else {
+            return $reviewId;
+        }
     }
 
     public function saveReviewImages (int $reviewId, array $images) {
         if (!empty($images)) {
             foreach ($images as $image) {
-                $this->reviewDbGateway->saveReviewImage($reviewId, $image->name, $image->type, $image->size, $image->base64);
+                $this->reviewDbGateway->saveReviewImage($reviewId, $image->name, $image->size, $image->type, $image->base64);
             }
         }
     }

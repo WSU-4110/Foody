@@ -23,7 +23,7 @@ class ReviewDbGateway {
 
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_assoc($result)) {
-                $output['reviewId'] = $row["review_id"];
+                $output = $row["review_id"];
             }
         }
 
@@ -150,7 +150,7 @@ class ReviewDbGateway {
     }
 
     public function saveReviewImage (int $reviewId, string $imageName, string $imageSize, string $imageType, string $image) {
-        $sql = "INSERT INTO foody.restaurantImages (review_id, image_name, image_size, image_type, image_encoded)
+        $sql = "INSERT INTO foody.review_image (review_id, image_name, image_size, image_type, image_encoded)
             VALUES ('$reviewId', '$imageName', '$imageSize', '$imageType', '$image')";
 
         $this->dbConnection->returnQuery($sql);

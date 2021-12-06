@@ -19,6 +19,7 @@ class ReviewController {
             'website' => (string)$data->restaurantWebsite
         );
         $reviewData = array(
+            'username' => (string)$data->username,
             'textReview' => (string)$data->textReview,
             'deliciousnessScore' => (int)$data->deliciousnessScore,
             'serviceScore' => (int)$data->serviceScore,
