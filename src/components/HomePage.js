@@ -118,10 +118,6 @@ const HomePage = () => {
                 </div>
             </div>
 
-                {categoryRestaurants.length >= 1 && restaurantOrder === 'ascending' ? 
-                <div className="search-result-title" >Sorted Restaurants By Highest Rated Category!</div> 
-                :  <div className="search-result-title">Sorted Restaurants By Lowest Rated Category!</div>}
-
                 {
                     categoryRestaurants.length >= 1 ? 
                     categoryRestaurants.map((restaurant) =>
