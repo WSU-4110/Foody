@@ -86,7 +86,7 @@ const RestaurantReview = ({
           images: images.length > 0 ? images[0] : [],
         })
       }
-      // sendUserReview(restaurantReview);
+      sendUserReview(restaurantReview);
     }
   }
 
