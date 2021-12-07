@@ -268,6 +268,54 @@ class ReviewDbGateway {
                     AVG(pricing_value) AS price_value
                 FROM restaurant_review
                 WHERE restaurant_id = '$restaurantId'";
+
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
+    }
+
+    public function getRestaurantsByCategoryHighest($category) {
+        $sql = "SELECT DISTINCT
+                    restaurant_review.restaurant_id,
+                    restaurant.restaurant_name,
+                    restaurant.restaurant_phone,
+                    restaurant.restaurant_address,
+                    restaurant.restaurant_website
+                FROM restaurant_review
+                JOIN restaurant ON restaurant_review.restaurant_id = restaurant.restaurant_id
+                ORDER BY '$category' DESC";
+
+                
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
+    }
+
+    public function getRestaurantsByCategoryLowest($category) {
+        $sql = "SELECT DISTINCT
+                    restaurant_review.restaurant_id,
+                    restaurant.restaurant_name,
+                    restaurant.restaurant_phone,
+                    restaurant.restaurant_address,
+                    restaurant.restaurant_website
+                FROM restaurant_review
+                JOIN restaurant ON restaurant_review.restaurant_id = restaurant.restaurant_id
+                ORDER BY '$category' ASC";
+
                 
         $result = $this->dbConnection->returnQuery($sql);
         $output = [];

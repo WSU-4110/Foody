@@ -40,6 +40,12 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 	} else if ($_GET['action'] == "ratings") {
 		$reviewController = new ReviewController();
 		echo $reviewController->getRestaurantRatings();
+	} else if ($_GET['action'] == "searchCategoryAsc") {
+		$reviewController = new ReviewController();
+		echo $reviewController->getRestaurantsByCategoryHighest();
+	} else if($_GET['action'] == "searchCategoryDesc") {
+		$reviewController = new ReviewController();
+		echo $reviewController->getRestaurantsByCategoryLowest();
 	}
 }
 

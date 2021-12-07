@@ -157,7 +157,7 @@ const RestaurantReview = ({
             />
           </div>
         <div className="review-grid-one-row">
-          <input type="submit" value="Submit" disabled={submitIsDisabled} />
+          <input className="login-form-submit-button" type="submit" value="Submit" disabled={submitIsDisabled} />
         </div>
       </div>
     </form>

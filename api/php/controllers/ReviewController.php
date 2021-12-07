@@ -69,7 +69,20 @@ class ReviewController {
         $response['response'] = $this->reviewService->getRestaurantRatings($restaurantName, $restaurantAddress);
 
 		return json_encode($response);
+    }
 
+    public function getRestaurantsByCategoryHighest() {
+        $category = $_GET['category'];
+
+        $response['response'] = $this->reviewService->getRestaurantsByCategoryHighest($category);
+		return json_encode($response);
+    }
+
+    public function getRestaurantsByCategoryLowest() {
+        $category = $_GET['category'];
+
+        $response['response'] = $this->reviewService->getRestaurantsByCategoryLowest($category);
+		return json_encode($response);
     }
 
 }

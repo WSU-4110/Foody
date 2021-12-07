@@ -124,4 +124,23 @@ class ReviewService {
         return $restaurantRatings;
     }
 
+    public function getRestaurantsByCategoryHighest($category) {
+        $restaurantsByCategoryHighest = $this->reviewDbGateway->getRestaurantsByCategoryHighest($category);
+
+        if(empty($restaurantsByCategoryHighest)) {
+            return 'No Reviews Currently!';
+        }
+
+        return $restaurantsByCategoryHighest;
+    }
+
+    public function getRestaurantsByCategoryLowest($category) {
+        $restaurantsByCategoryLowest = $this->reviewDbGateway->getRestaurantsByCategoryLowest($category);
+
+        if(empty($restaurantsByCategoryHighest)) {
+            return 'No Reviews Currently!';
+        }
+
+        return $restaurantsByCategoryLowest;
+    }
 }

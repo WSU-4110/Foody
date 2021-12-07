@@ -516,3 +516,39 @@ input[name='pricingValue']  {
 .restaurant-ratings {
   color: var(--second-color);
 }
+
+.up-and-down-arrows {
+  color: var(--second-color);
+  font-size: xx-large;
+  margin: 1rem;
+}
+
+.up-arrow-sort:hover {
+  color: var(--third-color);
+}
+
+.down-arrow-sort:hover {
+  color: var(--third-color);
+}
+
+.up-arrow-sort-selected {
+  color: var(--third-color);
+}
+
+.down-arrow-sort-selected {
+  color: var(--third-color);
+}
+
+.sort-by-category {
+  display: inline-flex;
+}
+
+.search {
+  display: flex;
+}
+
+.category-options-dropdown {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
