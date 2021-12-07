@@ -84,7 +84,7 @@ const RestaurantPage = () => {
                     service={userReview.service_score}
                     reviewId={userReview.review_id}
                     />) 
-                    : <div> </div>
+                    : <h2>No Reviews For This Restaurant!</h2>
                     }
                 </div>
                
