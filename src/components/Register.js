@@ -13,9 +13,7 @@ const Register = ({background}) => {
     const[username, setUsername] = useState('')
     const[password, setPassword] = useState('')
     const[invalidUsername, setInvalidUsername] = useState(false);
-    const [accountCreated, setAccountCreated] = useState(false);
-    const [invalidCaptha, setInvalidCaptha] = useState(false);
-    const history = useHistory()
+    const [accountCreated, setAccountCreated] = useState(false);  
 
     const LaptopScreen = useMediaQuery({
         query: '(max-width: 1280px)'
@@ -46,10 +44,8 @@ const Register = ({background}) => {
       }
 
     const validateResponseData = (data) => {
-        if(data['response'] === "Valid username, account created") {
-                // alert("Your account has been created! Press 'okay' to sign in.")
-                setAccountCreated(true);
-                // history.push('/');
+        if(data['response'] === "Valid username, account created") { 
+                setAccountCreated(true); 
         } else if (data['response'] === "Username is already in use with another account. Try a different username!"){
                 setInvalidUsername(true);
         }
