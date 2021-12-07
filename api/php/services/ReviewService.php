@@ -90,9 +90,10 @@ class ReviewService {
     }
 
     public function updateReviewLikes($username, $reviewId) {
-        $userIdArray = $this->usersService->getUserId($username);
-        $userId = $userIdArray['userId'];
+        // $userIdArray = $this->usersService->getUserId($username);
+        // $userId = $userIdArray['userId'];
 
+        $userId = $this->usersService->getUserId($username);
         $didUserLikeThisReviewAlready = $this->reviewDbGateway->getUserLikedReview($userId, $reviewId);
         //print_r($didUserLikeThisReviewAlready);
 
