@@ -20,6 +20,7 @@ const RestaurantReview = ({
   const [submitIsDisabled, setSubmitBtnStatus] = useState(false);
 
   const infoMsgRef = useRef();
+  const maxImgSize = 10240;
 
 
   // review functions start
@@ -53,11 +54,15 @@ const RestaurantReview = ({
         infoMsg = appendInfoMsg(infoMsg, 'Pricing value cannot be blank');
       }
 
+      if (images.length > 0) {
+        infoMsg = appendInfoMsg(infoMsg, validateImageSize(images[0]));
+      }
+
       infoMsgRef.current.innerHTML = infoMsg;
     }
     else {
       infoMsgRef.current.innerHTML = '';
-      // setSubmitBtnStatus(true);
+      setSubmitBtnStatus(true);
 
       const restaurantReview = {
         method: 'POST',
@@ -81,7 +86,21 @@ const RestaurantReview = ({
           images: images.length > 0 ? images[0] : [],
         })
       }
-      sendUserReview(restaurantReview);
+      // sendUserReview(restaurantReview);
+    }
+  }
+
+  const validateImageSize = (images) => {
+    let totalSize = 0;
+    for (let img of images) {
+      totalSize += parseInt(img['size'].split(' ')[0]);
+    }
+
+    if (totalSize > maxImgSize) {
+      return 'Images size exceeds ' + maxImgSize / 1024 + 'MB';
+    }
+    else {
+      return '';
     }
   }
 
