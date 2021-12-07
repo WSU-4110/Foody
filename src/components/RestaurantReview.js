@@ -6,7 +6,8 @@ const RestaurantReview = ({
   restaurantName,
   restaurantPhone,
   restaurantAddress,
-  restaurantWebsite
+  restaurantWebsite,
+  ratingsRequest
 }) => {
   const [textReview, setTextReview] = useState('');
   const [deliciousnessScore, setDeliciousnessScore] = useState(0);
@@ -96,6 +97,7 @@ const RestaurantReview = ({
       infoMsgRef.current.style.color = "green";
       infoMsgRef.current.innerHTML = data['response'];
       changeTextAreaStatus(true);
+      ratingsRequest();
     }
   }
   // review functions end

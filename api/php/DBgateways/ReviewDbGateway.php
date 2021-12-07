@@ -258,4 +258,26 @@ class ReviewDbGateway {
 
         return $output;
     }
+
+    public function getRestaurantRatings($restaurantId) {
+        $sql = "SELECT 
+                    AVG(deliciousness_score) AS deliciousness,
+                    AVG(service_score) AS service_score,
+                    AVG(experience_score) AS experience_score,
+                    AVG(pricing_score) AS price_score,
+                    AVG(pricing_value) AS price_value
+                FROM restaurant_review
+                WHERE restaurant_id = '$restaurantId'";
+                
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($output, $row);
+            }
+        }
+
+        return $output;
+    }
 }

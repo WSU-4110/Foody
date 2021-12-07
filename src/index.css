@@ -512,3 +512,7 @@ input[name='pricingValue']  {
   font-weight: bold;
   padding: 1rem;
 }
+
+.restaurant-ratings {
+  color: var(--second-color);
+}

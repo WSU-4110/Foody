@@ -112,4 +112,16 @@ class ReviewService {
     public function getReviewLikes($reviewId) {
         return $this->reviewDbGateway->getReviewLikes($reviewId);
     }
+
+    public function getRestaurantRatings($restaurantName, $restaurantAddress) {
+        $restaurantId = $this->restaurantService->getRestaurantId($restaurantName, $restaurantAddress);
+
+        if(empty($restaurantId)) {
+            return "No Reviews For This Restaurant!";
+        }
+
+        $restaurantRatings = $this->reviewDbGateway->getRestaurantRatings($restaurantId['restaurantId']);
+        return $restaurantRatings;
+    }
+
 }

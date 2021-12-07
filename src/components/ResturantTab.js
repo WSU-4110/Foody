@@ -2,11 +2,13 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import RestaurantReview from './RestaurantReview';
 import RestaurantPage from './RestaurantPage';
 import { useHistory } from 'react-router';
+import { Star } from 'react-star';
 
 const ResturantTab = ({name, phone, address, website, coordinates}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
-  const history = useHistory();
-  const [showPostReview, setShowPostReview] = useState(false)
+    const history = useHistory();
+    const [showPostReview, setShowPostReview] = useState(false);
+    const [ratings, setRatings] = useState([]);
     
     // const bingMapApiRequest = async () => {
     //     const res = await fetch(`http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/${latitude}, ${longtitude}/16?mapSize=300,300&pp=${latitude}, ${longtitude};47&mapLayer=Basemap,Buildings&key=${BEARER_TOKEN}`)
@@ -17,12 +19,27 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
 
     // }
 
+    const restaurantRequestInfo = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+  }
+  
+
+  const restaurantRatingsRequest = async() => {
+      const res = await fetch(`http://localhost:80/api/index.php?action=ratings&restaurantName=${name}&restaurantAddress=${address}`, restaurantRequestInfo)
+      const data = await res.json()
+   
+
+      if(data.response !== 'No Reviews For This Restaurant!') {
+          console.log(data);
+          setRatings(data.response);
+          console.log(ratings);
+      }
+  }
+
+ 
     useEffect(() => {
-        // try {
-        //     bingMapApiRequest()
-        // } catch (e) {
-        //     console.log(e)
-        // }
+      restaurantRatingsRequest();
     }, [])
 
     const onRestaurantTabClicked = () => {
@@ -53,14 +70,51 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
              </div>
 
              <div>
-                 <div>Ratings!</div>
+                 <h2>Ratings!</h2>
 
-                <button className="" onClick={() => setShowPostReview(!showPostReview)}> {!showPostReview ? 'Post a review' : 'Cancel'}</button>
+                 {ratings.length > 0 ? 
+
+                  <div className="restaurant-ratings">
+                      <div className="rating-container">
+                          <div className="rating-attribute-title">
+                              Deliciousness: 
+                          </div>
+
+                          <Star readOnly={true} defaultValue={ratings[0].deliciousness}/>
+                      </div>
+
+                      <div className="rating-attribute-title">
+                          Service: 
+                          <Star readOnly={true} defaultValue={ratings[0].service_score}/>
+                      </div>
+
+                      <div className="rating-attribute-title">
+                          Experience: 
+                          <Star readOnly={true} defaultValue={ratings[0].experience_score}/>
+                      </div>
+
+                      <div className="rating-attribute-title">
+                          Pricing: 
+                          <Star readOnly={true} defaultValue={ratings[0].price_score}/>
+                      </div>
+
+                      <div className="rating-attribute-title">
+                          Average Money Spent: $
+                          {ratings[0].price_value}
+                      </div>
+                  </div>
+                
+                 : <div>No reviews for this restaurant!</div>
+                }
+
+                <button className="login-form-submit-button" onClick={() => setShowPostReview(!showPostReview)}> {!showPostReview ? 'Post a review' : 'Cancel'}</button>
                 {showPostReview && <RestaurantReview
                     restaurantName = { name }
                     restaurantPhone = { phone }
                     restaurantAddress = { address }
-                    restaurantWebsite = { website } />}
+                    restaurantWebsite = { website } 
+                    ratingsRequest = {() => restaurantRatingsRequest()}
+                 />}
              </div>
         
 

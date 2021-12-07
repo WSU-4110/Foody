@@ -62,4 +62,14 @@ class ReviewController {
         return json_encode($response);
     }
 
+    public function getRestaurantRatings() {
+        $restaurantName = $_GET['restaurantName'];
+		$restaurantAddress = $_GET['restaurantAddress'];
+
+        $response['response'] = $this->reviewService->getRestaurantRatings($restaurantName, $restaurantAddress);
+
+		return json_encode($response);
+
+    }
+
 }

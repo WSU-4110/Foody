@@ -37,6 +37,9 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 	} else if($_GET['action'] == "getLikes") {
 		$reviewController = new ReviewController();
 		echo $reviewController->getReviewLikes();
+	} else if ($_GET['action'] == "ratings") {
+		$reviewController = new ReviewController();
+		echo $reviewController->getRestaurantRatings();
 	}
 }
 
