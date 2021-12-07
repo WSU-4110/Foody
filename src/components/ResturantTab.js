@@ -4,7 +4,7 @@ import RestaurantPage from './RestaurantPage';
 import { useHistory } from 'react-router';
 import { Star } from 'react-star';
 
-const ResturantTab = ({name, phone, address, website, coordinates}) => {
+const ResturantTab = ({name, phone, address, website, coordinates, restaurant}) => {
     const [resturauntMapUrl, setResturauntMapUrl] = useState('')
     const history = useHistory();
     const [showPostReview, setShowPostReview] = useState(false);
@@ -40,7 +40,7 @@ const ResturantTab = ({name, phone, address, website, coordinates}) => {
  
     useEffect(() => {
       restaurantRatingsRequest();
-    }, [])
+    }, [restaurant])
 
     const onRestaurantTabClicked = () => {
       history.push({

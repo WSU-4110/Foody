@@ -127,6 +127,7 @@ const HomePage = () => {
                         address={restaurant.restaurant_address} 
                         website={restaurant.restaurant_website} 
                         coordinates={[42.3591, -83.0665]}
+                        restaurant={restaurant}
                         />)
                     : <div></div>
                 }
