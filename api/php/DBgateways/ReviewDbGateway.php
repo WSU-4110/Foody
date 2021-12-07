@@ -282,15 +282,39 @@ class ReviewDbGateway {
     }
 
     public function getRestaurantsByCategoryHighest($category) {
-        $sql = "SELECT DISTINCT
+        $orderBySql = '';
+        $avgCategorySql = '';
+
+        switch($category) {
+            case 'deliciousness_score':
+                $orderBySql = 'ORDER BY deliciousness_score DESC';
+                $avgCategorySql = 'AVG(restaurant_review.deliciousness_score) as deliciousness_score';
+                break;
+            case 'service_score':
+                $orderBySql = 'ORDER BY service_score DESC';
+                $avgCategorySql = 'AVG(restaurant_review.service_score) as service_score';
+                break;
+            case 'experience_score':
+                $orderBySql = 'ORDER BY experience_score DESC';
+                $avgCategorySql = 'AVG(restaurant_review.experience_score) as experience_score';
+                break;
+            case 'pricing_score':
+                $orderBySql = 'ORDER BY pricing_score DESC';
+                $avgCategorySql = 'AVG(restaurant_review.pricing_score) as pricing_score';
+                break;
+        }
+
+        $sql = "SELECT 
                     restaurant_review.restaurant_id,
                     restaurant.restaurant_name,
                     restaurant.restaurant_phone,
                     restaurant.restaurant_address,
-                    restaurant.restaurant_website
+                    restaurant.restaurant_website,
+                    $avgCategorySql
                 FROM restaurant_review
                 JOIN restaurant ON restaurant_review.restaurant_id = restaurant.restaurant_id
-                ORDER BY '$category' DESC";
+                GROUP BY restaurant.restaurant_id
+                $orderBySql";
 
                 
         $result = $this->dbConnection->returnQuery($sql);
@@ -306,15 +330,39 @@ class ReviewDbGateway {
     }
 
     public function getRestaurantsByCategoryLowest($category) {
-        $sql = "SELECT DISTINCT
+        $orderBySql = '';
+        $avgCategorySql = '';
+
+        switch($category) {
+            case 'deliciousness_score':
+                $orderBySql = 'ORDER BY deliciousness_score ASC';
+                $avgCategorySql = 'AVG(restaurant_review.deliciousness_score) as deliciousness_score';
+                break;
+            case 'service_score':
+                $orderBySql = 'ORDER BY service_score ASC';
+                $avgCategorySql = 'AVG(restaurant_review.service_score) as service_score';
+                break;
+            case 'experience_score':
+                $orderBySql = 'ORDER BY experience_score ASC';
+                $avgCategorySql = 'AVG(restaurant_review.experience_score) as experience_score';
+                break;
+            case 'pricing_score':
+                $orderBySql = 'ORDER BY pricing_score ASC';
+                $avgCategorySql = 'AVG(restaurant_review.pricing_score) as pricing_score';
+                break;
+        }
+
+        $sql = "SELECT 
                     restaurant_review.restaurant_id,
                     restaurant.restaurant_name,
                     restaurant.restaurant_phone,
                     restaurant.restaurant_address,
-                    restaurant.restaurant_website
+                    restaurant.restaurant_website,
+                    $avgCategorySql
                 FROM restaurant_review
                 JOIN restaurant ON restaurant_review.restaurant_id = restaurant.restaurant_id
-                ORDER BY '$category' ASC";
+                GROUP BY restaurant.restaurant_id
+                $orderBySql";
 
                 
         $result = $this->dbConnection->returnQuery($sql);

@@ -137,7 +137,7 @@ class ReviewService {
     public function getRestaurantsByCategoryLowest($category) {
         $restaurantsByCategoryLowest = $this->reviewDbGateway->getRestaurantsByCategoryLowest($category);
 
-        if(empty($restaurantsByCategoryHighest)) {
+        if(empty($restaurantsByCategoryLowest)) {
             return 'No Reviews Currently!';
         }
 

@@ -41,6 +41,7 @@ const HomePage = () => {
     
   
     const restaurantsByCategoryAscendingRequest = async(category) => {
+        console.log(category);
         const res = await fetch(`http://localhost:80/api/index.php?action=searchCategoryAsc&category=${category}`, searchCategoryRestaurantInfo)
         const data = await res.json()
      
@@ -54,6 +55,7 @@ const HomePage = () => {
     const restaurantsByCategoryDescendingRequest = async(category) => {
         const res = await fetch(`http://localhost:80/api/index.php?action=searchCategoryDesc&category=${category}`, searchCategoryRestaurantInfo)
         const data = await res.json()
+        console.log(data);
      
   
         if(data.response !== 'No Reviews Currently!') {
@@ -76,6 +78,7 @@ const HomePage = () => {
 
     const setSortOrderDescending = () => {
         setRestaurantOrder('descending');
+        console.log(restaurantOrder);
     }
 
     
@@ -95,10 +98,10 @@ const HomePage = () => {
                 <div className="sort-by-category">
                     <select className="category-options-dropdown" onChange={((e) => getRestaurantsByCategory(e.target.value))}>
                             <option value="0" selected disabled hidden>Choose here</option>
-                            <option value="Deliciousness">Deliciousness</option>
-                            <option value="Service">Service</option>
-                            <option value="Experience">Experience</option>
-                            <option value="Pricing">Pricing</option>
+                            <option value="deliciousness_score">Deliciousness</option>
+                            <option value="service_score">Service</option>
+                            <option value="experience_score">Experience</option>
+                            <option value="pricing_score">Pricing</option>
                     </select>
 
                     <div className="up-and-down-arrows">
@@ -111,11 +114,27 @@ const HomePage = () => {
                             restaurantOrder === 'descending' ? <i class='bx bx-down-arrow-alt down-arrow-sort-selected' onClick={() => setSortOrderDescending()}></i>
                             : <i class='bx bx-down-arrow-alt down-arrow-sort' onClick={() => setSortOrderDescending()}></i>
                         }
-                       
-                        
                     </div>
                 </div>
             </div>
+
+                {categoryRestaurants.length >= 1 && restaurantOrder === 'ascending' ? 
+                <div className="search-result-title" >Sorted Restaurants By Highest Rated Category!</div> 
+                :  <div className="search-result-title">Sorted Restaurants By Lowest Rated Category!</div>}
+
+                {
+                    categoryRestaurants.length >= 1 ? 
+                    categoryRestaurants.map((restaurant) =>
+                        <ResturantTab 
+                        name={restaurant.restaurant_name} 
+                        phone={restaurant.restaurant_phone} 
+                        address={restaurant.restaurant_address} 
+                        website={restaurant.restaurant_website} 
+                        coordinates={[42.3591, -83.0665]}
+                        />)
+                    : <div></div>
+                }
+
 
 
                 <h2 className="search-result-title">Top Search Results!</h2>
