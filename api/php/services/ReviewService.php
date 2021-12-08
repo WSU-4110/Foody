@@ -73,6 +73,16 @@ class ReviewService {
         }
     }
 
+    public function getReviewImage (int $reviewId) {
+        $images = $this->reviewDbGateway->getReviewImage($reviewId);
+        if (empty($images)) {
+            return "No images for this review";
+        }
+        else {
+            return $images;
+        }
+    }
+
     public function getRestaurantReviews($restaurantName, $restaurantAddress) {
         $restaurantId = $this->restaurantService->getRestaurantId($restaurantName, $restaurantAddress);
 

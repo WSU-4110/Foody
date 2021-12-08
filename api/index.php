@@ -3,11 +3,11 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
+header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE,HEAD,PATCH");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://localhost:3000");
 // header("Access-Control-Allow-Origin: *");
 // header("Access-Control-Allow-Headers: Content-Type");
 
@@ -46,6 +46,9 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 	} else if($_GET['action'] == "searchCategoryDesc") {
 		$reviewController = new ReviewController();
 		echo $reviewController->getRestaurantsByCategoryLowest();
+	} else if($_GET['action'] == "getImages") {
+		$reviewController = new ReviewController();
+		echo $reviewController->getReviewImage();
 	}
 }
 

@@ -34,6 +34,13 @@ class ReviewController {
         return json_encode($response);
     }
 
+    public function getReviewImage () {
+        $reviewId = $_GET['reviewId'];
+        $response['response'] = $this->reviewService->getReviewImage($reviewId);
+
+        return json_encode($response);
+    }
+
     public function getRestaurantReviews() {
         $restaurantName = $_GET['restaurantName'];
 		$restaurantAddress = $_GET['restaurantAddress'];

@@ -20,7 +20,7 @@ const RestaurantReview = ({
   const [submitIsDisabled, setSubmitBtnStatus] = useState(false);
 
   const infoMsgRef = useRef();
-  const maxImgSize = 10240;
+  const maxImgSize = 2048;
   const maxImgCount = 5;
 
 
@@ -99,17 +99,14 @@ const RestaurantReview = ({
   }
 
   const validateImageSize = (imgs) => {
-    let totalSize = 0;
-    imgs.map((img) =>
-      totalSize += parseInt(img['size'].split(' ')[0])
-    );
+    let msg = '';
+    imgs.map((img) => {
+      if (parseInt(img['size'].split(' ')[0]) > maxImgSize) {
+        msg = 'Image size exceeds ' + maxImgSize / 1024 + 'MB';
+      }
+    });
 
-    if (totalSize > maxImgSize) {
-      return 'Images size exceeds ' + maxImgSize / 1024 + 'MB';
-    }
-    else {
-      return '';
-    }
+    return msg;
   }
 
   const sendUserReview = async (restaurantReview) => {
@@ -176,13 +173,15 @@ const RestaurantReview = ({
           spent
         </div>
         <div className="review-grid-one-row">
-           <FileBase64
-            type="file"
-            multiple={true}
-            onDone={(base64) => setImages([base64])}
-          />
-          <sup>max 5 images, total 10mb</sup>
-          </div>
+           <div className="div-hover-text">
+             <FileBase64
+              type="file"
+              multiple={true}
+              onDone={(base64) => setImages([base64])}
+              />
+           </div>
+           <div className="hover-hide"><sup>5 images, each smaller than 2mb</sup></div>
+        </div>
         <div className="review-grid-one-row">
           <input className="login-form-submit-button" type="submit" value="Submit" disabled={submitIsDisabled} />
         </div>

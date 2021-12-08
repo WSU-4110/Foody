@@ -399,7 +399,32 @@ border-radius: 1rem;
 input[name='pricingValue']  {
   width: 80px;
 }
+
+.hover-hide {
+  display: none;
+}
+
+.div-hover-text:hover + .hover-hide {
+  display: block;
+  color: red;
+  width: 250px;
+}
+
 /* Restaurant review end */
+
+.image-preview-container {
+  display: grid;
+   grid-template-columns: auto auto auto auto auto;
+   grid-template-rows: 100px;
+   grid-gap: 10px;
+
+  box-sizing: border-box;
+  width: auto;
+  height: 100px;
+
+  /* background: rgb(255, 0, 0);
+  border: 2px dashed rgb(55, 255, 0); */
+}
 
 .leaflet-container {
   height: 100vh;

@@ -1,9 +1,10 @@
-import React from 'react';
 import { Star } from 'react-star';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import ModalImage from "react-modal-image";
 
 const UserReview = ({username, textReview, date, deliciousness, experience, pricingScore, pricingValue, service, reviewId}) => {
     const [reviewLikes, setReviewLikes] = useState(0);
+    const [reviewImages, setReviewImages] = useState([]);
 
     const likeReviewInformation = {
         method: 'POST',
@@ -45,13 +46,30 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
         setReviewLikes(data.response[0].likes);
     }
 
+    const getReviewImages = async () => {
+        const res = await fetch(`http://localhost:80/api/index.php?action=getImages&reviewId=${reviewId}`, reviewInformation);
+        const data = await res.json();
+
+
+        console.log("TESTING START");
+        setReviewImages(data['response']);
+
+        console.log(reviewImages);
+        console.log("TESTING END");
+    }
+
     useEffect(() => {
         try {
             getReviewLikes();
+            getReviewImages();
         } catch (e) {
             console.log(e);
         }
-    }, []) 
+    }, [])
+
+    useEffect(() => {
+        console.log("refreshing images; image count: " + reviewImages.length);
+    }, [reviewImages]);
 
     return (
         <div className="user-review-container">
@@ -66,7 +84,6 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
                 </div>
             </div>
 
-          
             <div className="text-review">
                 {textReview}
             </div>
@@ -99,6 +116,22 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
                     Money Spent: $
                     {pricingValue}
                 </div>
+                <div className="rating-attribute-title">
+                    {/* <button onClick={() => getReviewImages()}>test</button> */}
+                    {reviewImages.length > 0 && (
+                    <div className="image-preview-container">
+                        {reviewImages.map((img) =>
+                        <ModalImage
+                            small={img.image_encoded}
+                            large={img.image_encoded}
+                            alt={img.image_name}
+                            hideZoom={true}
+                            showRotate={false}
+                        />
+                        )}
+                    </div>
+                    )}
+                </div>
             </div>
 
 
@@ -106,7 +139,6 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
                 {reviewLikes}
             <i className='bx bx-like like-button' onClick={() => likeReviewRequest()}></i>
             </div>
-           
         </div>
     )
 }
