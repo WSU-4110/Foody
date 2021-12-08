@@ -13,8 +13,7 @@ const Register = ({background}) => {
     const[username, setUsername] = useState('')
     const[password, setPassword] = useState('')
     const[invalidUsername, setInvalidUsername] = useState(false);
-    const [accountCreated, setAccountCreated] = useState(false);
-    const history = useHistory()
+    const [accountCreated, setAccountCreated] = useState(false);  
 
     const LaptopScreen = useMediaQuery({
         query: '(max-width: 1280px)'
@@ -45,15 +44,12 @@ const Register = ({background}) => {
       }
 
     const validateResponseData = (data) => {
-        if(data['response'] === "Valid username, account created") {
-                // alert("Your account has been created! Press 'okay' to sign in.")
-                setAccountCreated(true);
-                // history.push('/');
+        if(data['response'] === "Valid username, account created") { 
+                setAccountCreated(true); 
         } else if (data['response'] === "Username is already in use with another account. Try a different username!"){
                 setInvalidUsername(true);
         }
     }
-    
     return (
     <div className={background}>
         <div className="register-container">
@@ -74,11 +70,12 @@ const Register = ({background}) => {
                         <input className="register-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
                         <label> Enter a password </label>
                         <input className="register-form-text-input" type="password" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input> 
-                                <ReCAPTCHA
-                                    sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
-                                    onChange={() => setIsVerified(false)} 
-                                />
-                        <input id="registerButton" className="register-form-submit-button" type="submit" placeholder="Login" disabled={isVerified}></input>
+                        <ReCAPTCHA
+                            sitekey="6LcgeDcdAAAAAOOgGLtrOpC5CcxujIZMLtyd-h33"
+                            onChange={() => setIsVerified(false)}
+                        />
+                        {(isVerified) ? <label className="invalid"> Please verify that you are not a robot! </label> : <label></label>}
+                        <input id="registerButton" className="register-form-submit-button" type="submit" placeholder="Login" disabled={isVerified} ></input>
                     </div>
                 </form>
             </div> }
