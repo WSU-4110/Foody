@@ -21,6 +21,7 @@ const RestaurantReview = ({
 
   const infoMsgRef = useRef();
   const maxImgSize = 10240;
+  const maxImgCount = 5;
 
 
   // review functions start
@@ -43,9 +44,8 @@ const RestaurantReview = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let infoMsg = '';
     if (textReview.length === 0 || (pricingValue === 0 || pricingValue.length === 0)) {
-      infoMsgRef.current.style.color = "red";
-      let infoMsg = '';
 
       if (textReview.length === 0) {
         infoMsg = appendInfoMsg(infoMsg, 'Review cannot be blank');
@@ -54,13 +54,21 @@ const RestaurantReview = ({
         infoMsg = appendInfoMsg(infoMsg, 'Pricing value cannot be blank');
       }
 
-      if (images.length > 0) {
-        infoMsg = appendInfoMsg(infoMsg, validateImageSize(images[0]));
-      }
-
+      infoMsgRef.current.style.color = "red";
       infoMsgRef.current.innerHTML = infoMsg;
     }
-    else {
+
+    if (images.length > 0) {
+      if (images[0].length > maxImgCount) {
+        infoMsg = appendInfoMsg(infoMsg, 'Maximum number (' + maxImgCount + ') of images exceeded');
+      }
+      infoMsg = appendInfoMsg(infoMsg, validateImageSize(images[0]));
+
+      infoMsgRef.current.style.color = "red";
+      infoMsgRef.current.innerHTML = infoMsg;
+    }
+
+    if (infoMsg.length === 0) {
       infoMsgRef.current.innerHTML = '';
       setSubmitBtnStatus(true);
 
@@ -90,11 +98,11 @@ const RestaurantReview = ({
     }
   }
 
-  const validateImageSize = (images) => {
+  const validateImageSize = (imgs) => {
     let totalSize = 0;
-    for (let img of images) {
-      totalSize += parseInt(img['size'].split(' ')[0]);
-    }
+    imgs.map((img) =>
+      totalSize += parseInt(img['size'].split(' ')[0])
+    );
 
     if (totalSize > maxImgSize) {
       return 'Images size exceeds ' + maxImgSize / 1024 + 'MB';
@@ -169,11 +177,11 @@ const RestaurantReview = ({
         </div>
         <div className="review-grid-one-row">
            <FileBase64
-          type="file"
-          multiple={true}
-          onDone={
-            (base64) => setImages([base64])}
-            />
+            type="file"
+            multiple={true}
+            onDone={(base64) => setImages([base64])}
+          />
+          <sup>max 5 images, total 10mb</sup>
           </div>
         <div className="review-grid-one-row">
           <input className="login-form-submit-button" type="submit" value="Submit" disabled={submitIsDisabled} />
