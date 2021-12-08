@@ -2,64 +2,89 @@ import Navigation from './Navigation'
 import React, { useState, useEffect } from 'react';
 import RecentReviews from './RecentReviews';
 import Footer from './Footer';
-import Login from './Login';
-import {Row, Col, Button, Form} from "react-boostrap"
 
 
+/*const {
+    createPool
+} = require('mysql');
+const pool = createPool({
+    host: "localhost",
+    user: "root",
+    password: "foody",
+    database: "profilepagedata",
+    connectionLimit: 10
+})
+ pool.query(`SELECT * FROM profilepagedata`, (err, result, fields) => {
+     if(err){
+         return console.log(err);
+     }
+     return console.log(result);
+ })*/
 
 const ProfilePage = () => {
 
-    const[email, setEmail] = useState('')
-    const[username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
+    const [profilePic, setProfilePic] = useState(null)
+    const [error, setError] = useState(false)
+    
 
+    const handleImageChange = (e) => {
+        setError(false);
+        const selected = e.target.files[0];
+        const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
+        if (selected && ALLOWED_TYPES.includes(selected.type)){
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                setProfilePic(reader.result);
+            }
+            reader.readAsDataURL(selected);
+        } else {
+            setError(true);
+        }
+    }
     return (
+        
         <div class="profile-page">
             <Navigation />
 
-            <div className="profile-page-main-container">
-                
-                <h2>Hello, Username!</h2>
+        <div className="profile-page-main-container">
+        <h1>Hello, Username!</h1>  
+            {error && <p className="errorMsg">File not supported</p>}
+            <div className="imgPreview"
+            style={{background: profilePic ? `url("${profilePic}") no-repeat left/cover` : "#FFFFFF" }}>
+                {!profilePic && (
+                    <>
+                    <p>Add a profile image</p>
+                    <label htmlFor="fileUpload" className="customFileUpload">
+                        Choose file
+                    </label>
+                    <input  type="file" id="fileUpload" onChange={handleImageChange} />
+                    <span>(jpg, jpeg or png)</span>
+                    </>
+                )}
+             {profilePic && (
+                 <button onClick={() => setProfilePic(null)}>Remove Image</button> )} 
+             </div>
+            
 
-                <img className="profile-pic" src="/images/profile-default.svg" alt=""/>
-                <div className="update-container">
-                        
+            <div className="update-container">
+                <h2>User Information</h2>
+                    <label> Username </label>
+                    <input className="show-info-text" type="text" placeholder= "Username" disabled value={username} ></input>
 
-                <Row>
-                    <Col className="UserProfile">
-                        <Form onsubmit={submitHandler}>
-                            <Form.Group controlId="username"> 
-                            <Form.Label>Username </Form.Label>
-                            <Form.Control type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}> 
-                            </Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId="email"> 
-                            <Form.Label> Email </Form.Label>
-                            <Form.Control type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}> 
-                            </Form.Control> 
-                            </Form.Group>
-                            <Form.Group controlId="password"> 
-                            <Form.Label> Password </Form.Label>
-                            <Form.Control type="text" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)}> 
-                            </Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId="pic"> 
-                            <Form.Label>Change Profile Picture</Form.Label>
-                            <Form.File type="image/png" id="custom-file" label="upload Profile Picture" custom onChange={(e) => postDetails(e.target.value)}> 
-                            </Form.File>
-                            </Form.Group>
-                            <Button type="submit" varient="primary">Update</Button>
-
-                            </Form>
-                        </Col>
-                    <Col className="ProfilePic">Profile Picture <img src={pic} />
-                    </Col>
-
-                </Row>
-
-                        
-                </div>
-                <h2>Review History</h2>
+                    <label> Email</label>
+                    <input className="show-info-text" type="text" placeholder="Email" disabled value={email} ></input>
             </div>
+        </div>
+                
+                
+                
+                
+          
+                
+                <h2>Review History</h2>
+            
 
            
             <RecentReviews
