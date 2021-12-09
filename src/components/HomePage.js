@@ -130,9 +130,10 @@ const HomePage = () => {
                         restaurant={restaurant}
                         />)
                     : <div></div>
-                }
+                }    
 
-
+                <button className="random-button">Try a Random Restaurant?</button>
+                 
 
                 <h2 className="search-result-title">Top Search Results!</h2>
                 {restaurants.map((restaurant) =>
