@@ -82,7 +82,7 @@ const HomePage = () => {
     }
     
     const onClickRandomButton = () => { 
-        const randomRestaurant = restaurants[Math.floor(Math.random() * restaurants.length)];
+        var randomRestaurant = restaurants[Math.floor(Math.random() * restaurants.length)];
         console.log(randomRestaurant);
         setRestaurants([randomRestaurant]); 
         // setQueryParamter(randomRestaurant.name); 
