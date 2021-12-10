@@ -24,4 +24,18 @@ class ReviewController {
 
         return json_encode($response);
     }
+
+    public function userReviewPull($data) {
+		$restaurantId = (int)$data->restaurantId;
+        $userId = (int)$data->userId;
+        $textReview = (string)$data->textReview;
+        $deliciousnessScore = (int)$data->deliciousnessScore;
+        $serviceScore = (int)$data->serviceScore;
+        $experienceScore = (int)$data->experienceScore;
+        $pricingScore = (int)$data->pricingScore;
+
+		$response['response'] = $this->usersService->validateUserLoginRequest($restaurantId, $userId, $textReview, $deliciousnessScore, $serviceScore, $experienceScore, $pricingScore);
+		
+        return json_encode($response);
+	}
 }
