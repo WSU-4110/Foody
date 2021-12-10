@@ -68,6 +68,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else if($data->url == "/review/like") {
 		$reviewController = new ReviewController();
 		echo $reviewController->updateReviewLikes($data);
+	} else if($data->url == "/review/delete") {
+		$reviewController = new ReviewController();
+		echo $reviewController->deleteUserReview($data);
 	}
 }
 

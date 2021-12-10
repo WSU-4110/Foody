@@ -47,7 +47,7 @@ const RestaurantPage = () => {
         } catch (e) {
             console.log(e);
         }
-    }, [])
+    }, [restaurantReviews])
 
     return (
         <div className="">
@@ -83,6 +83,7 @@ const RestaurantPage = () => {
                     pricingValue={userReview.pricing_value}
                     service={userReview.service_score}
                     reviewId={userReview.review_id}
+                    getReviews={() => restaurantReviewsRequest()}
                     />) 
                     : <h2>No Reviews For This Restaurant!</h2>
                     }
