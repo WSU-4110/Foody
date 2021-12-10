@@ -6,12 +6,6 @@ class UsersDbGateway {
 
 
  private $dbConnection = null;
-
- private $servername = "localhost";
- private $username = "root";
- private $password = "foody";
- private $db = "foody";
- 
  // Create connection
  private $conn = null;
 
@@ -59,13 +53,12 @@ class UsersDbGateway {
 	}
 
 
-    public function validateUserLoginInformation($username, $password) {
+    public function getUserLoginInformation($username) {
         $sql = "SELECT 
                   username,
                   password
                 FROM foody.user
                 WHERE username = '$username'
-                AND password = '$password'
                 ";
 
 
@@ -74,10 +67,30 @@ class UsersDbGateway {
 
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_assoc($result)) {
-                array_push($output, $row["username"]);
-                array_push($output, $row["password"]);
+                $output['username'] = $row['username'];
+                $output['password'] = $row['password'];
             }
         } 
+
+        return $output;
+    }
+
+    public function getUserId (string $username) {
+        $sql = "SELECT
+                  user_id
+                FROM foody.user
+                WHERE username = '$username'
+                ";
+
+
+        $result = $this->dbConnection->returnQuery($sql);
+        $output = [];
+
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $output['userId'] = $row['user_id'];
+            }
+        }
 
         return $output;
     }

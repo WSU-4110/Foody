@@ -55,6 +55,7 @@ const Login = ({background}) => {
 
     const validateUserLoginRequest = (data) => {
         if(data['response'] === 'User logged in') {
+            localStorage.setItem('username', username);
             history.push('/components/HomePage.js')
         } else {
             setUserLoggedIn(false);

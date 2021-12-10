@@ -3,7 +3,7 @@ import { useHistory } from 'react-router'
 
 const Navigation = () => {
 
-    const history = useHistory()
+    const history = useHistory();
 
     const onLogOut = () => {
         history.push('/')
@@ -14,7 +14,7 @@ const Navigation = () => {
         }
 
         logOutUserRequest(logOutUser)
-   
+
     }
 
 
@@ -35,20 +35,15 @@ const Navigation = () => {
                     <li className="navbar-links">
                         Profile
                     </li>
-            
+
                     <li className="navbar-links">
-                        Post a review! 
+                        Post a review!
                     </li>
                 </ul>
 
-                <form className="search-resturant-form">
-                    <input className="search-resturant-input" type="text" placeholder="Search for a resturant!"></input>
-                    <button className="search-button"><i class='bx bx-search-alt search-icon'></i></button>
-                </form>
-
                 <button onClick={onLogOut} className="logout-button">Logout</button>
             </nav>
-            
+
         </div>
     )
 }
