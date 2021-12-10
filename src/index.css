@@ -588,3 +588,20 @@ input[name='pricingValue']  {
 .delete-button:hover {
   color: red;
 }
+
+.random-button {
+  display: flex;
+  left: 0;
+  padding: 12px;
+  margin: 1rem 0rem 1rem 2rem;
+  background-color: var(--first-color);
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  border-radius: 1rem;
+}
+
+.random-button:hover {
+  background-color: var(--third-color);
+}
