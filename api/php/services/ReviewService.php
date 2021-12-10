@@ -154,4 +154,8 @@ class ReviewService {
 
         return $restaurantsByCategoryLowest;
     }
+
+    public function deleteUserReview($reviewId) {
+        return $this->reviewDbGateway->deleteUserReview($reviewId);
+    }
 }

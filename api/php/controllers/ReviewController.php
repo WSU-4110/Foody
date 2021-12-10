@@ -92,4 +92,12 @@ class ReviewController {
 		return json_encode($response);
     }
 
+    public function deleteUserReview($data) {
+        $reviewId = $data->reviewId;
+        $username = $data->username;
+
+        $response['response'] = $this->reviewService->deleteUserReview($reviewId);
+        return json_encode($response); 
+    }
+
 }

@@ -411,4 +411,14 @@ class ReviewDbGateway {
 
         return $output;
     }
+
+    public function deleteUserReview($reviewId) {
+        $sql = "DELETE 
+                FROM restaurant_review 
+                WHERE review_id = '$reviewId'
+                ";
+
+        $result = $this->dbConnection->returnQuery($sql);
+        return "Review deleted";
+    }
 }

@@ -2,9 +2,10 @@ import { Star } from 'react-star';
 import { useEffect, useState, useRef } from 'react';
 import ModalImage from "react-modal-image";
 
-const UserReview = ({username, textReview, date, deliciousness, experience, pricingScore, pricingValue, service, reviewId}) => {
+const UserReview = ({username, textReview, date, deliciousness, experience, pricingScore, pricingValue, service, reviewId, getReviews}) => {
     const [reviewLikes, setReviewLikes] = useState(0);
     const [reviewImages, setReviewImages] = useState([]);
+    const [isReviewActive, setReviewStatus] = useState(true);
 
     const likeReviewInformation = {
         method: 'POST',
@@ -52,8 +53,10 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
 
 
         console.log("TESTING START");
-        setReviewImages(data['response']);
-
+        if(data['response'] !== 'No images for this review') {
+            setReviewImages(data['response']);
+        }
+        
         console.log(reviewImages);
         console.log("TESTING END");
     }
@@ -71,10 +74,36 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
         console.log("refreshing images; image count: " + reviewImages.length);
     }, [reviewImages]);
 
+    
+    const deleteReviewInfo = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          url: '/review/delete',
+          reviewId: reviewId,
+          username: localStorage.getItem('username')
+        }),
+    }
+
+    const deleteUserReview = async() => {
+        const res = await fetch(`http://localhost:80/api/index.php`, deleteReviewInfo);
+        console.log(res);
+        const data = await res.json();
+        console.log(data);
+        setReviewStatus(false);
+       // const data = await res.json();
+        getReviews();
+    }
+
     return (
         <div className="user-review-container">
-
-            <div className="username-and-date">
+            {
+                isReviewActive ? 
+                <div>
+                     <div className="username-and-date">
                 <div className="user-review-username">
                         {username}
                 </div>
@@ -82,7 +111,10 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
                 <div className="review-date">
                         {date}
                 </div>
+
+               {localStorage.getItem('username') === username ? <div className="delete-button" onClick={() => deleteUserReview()}>X</div> : <div></div>} 
             </div>
+
 
             <div className="text-review">
                 {textReview}
@@ -139,6 +171,10 @@ const UserReview = ({username, textReview, date, deliciousness, experience, pric
                 {reviewLikes}
             <i className='bx bx-like like-button' onClick={() => likeReviewRequest()}></i>
             </div>
+                </div>
+                : <h2>Your Review Deleted!</h2>
+            }
+           
         </div>
     )
 }

@@ -577,3 +577,14 @@ input[name='pricingValue']  {
   margin-bottom: 1rem;
   margin-left: 1rem;
 }
+
+.delete-button {
+  font-size: xx-large;
+  color: var(--first-color);
+  font-weight: bolder;
+  margin-left: 48rem;
+}
+
+.delete-button:hover {
+  color: red;
+}
