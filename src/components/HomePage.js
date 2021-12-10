@@ -7,7 +7,7 @@ import useUserCoordinates from './hooks/useUserCoordinates';
 import Map from './Map';
 
 const HomePage = () => {
-    const [restaurants, setRestaurants] = useState([]);
+    const [restaurants, setRestaurants] = useState([]); 
     const coord = useUserCoordinates();
     const position = [coord.coordinates.latitude, coord.coordinates.longitude];
     const [queryParameter, setQueryParamter] = useState("restaurants");
@@ -80,8 +80,13 @@ const HomePage = () => {
         setRestaurantOrder('descending');
         console.log(restaurantOrder);
     }
-
     
+    const onClickRandomButton = () => { 
+        var randomRestaurant = restaurants[Math.floor(Math.random() * restaurants.length)];
+        console.log(randomRestaurant);
+        setRestaurants([randomRestaurant]); 
+        // setQueryParamter(randomRestaurant.name); 
+    } 
     return (
         <div class="home-page">
             <Navigation />
@@ -132,9 +137,8 @@ const HomePage = () => {
                     : <div></div>
                 }    
 
-                <button className="random-button">Try a Random Restaurant?</button>
-                 
-
+                <button className="random-button" onClick={() => onClickRandomButton()} >Try a Random Restaurant?</button>
+           
                 <h2 className="search-result-title">Top Search Results!</h2>
                 {restaurants.map((restaurant) =>
                 <ResturantTab 
