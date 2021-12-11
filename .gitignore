@@ -2,7 +2,11 @@
 node_modules
 
 # Configuration files 
-src/components/config/config.js
+src/**/config.js
+
+#ignore package-lock.json
+package-lock.json
 
 # VSCode
-.vscode*.design
+.vscode
+*.design
