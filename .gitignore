@@ -5,7 +5,7 @@ node_modules
 src/**/config.js
 
 #ignore package-lock.json
-package-lock
+package-lock.json
 
 # VSCode
 .vscode
