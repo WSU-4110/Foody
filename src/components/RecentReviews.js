@@ -88,7 +88,7 @@ const RecentReviews = ({ username, name, phone, address, website, coordinates, r
                                     {info.pricing_value}
                                 </div>
 
-                                <div class="text-review-container">
+                                <div class="text-review">
                                     <br></br>
                                     Review Text:
                                     <br></br>
