@@ -46,7 +46,7 @@ const ProfilePage = () => {
     }
     return (
 
-        <div class="profile-page">
+        <div date-testid="profile-1">
             <Navigation />
 
             <div className="profile-page-main-container">
@@ -86,7 +86,7 @@ const ProfilePage = () => {
                     username={localStorage.getItem('username')}
                 />
 
-                <div className="footer-profilepage">
+                <div date-testid="Footer-1" className="footer-profilepage">
                     <Footer />
                 </div>
             </div>

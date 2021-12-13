@@ -54,12 +54,12 @@ const RecentReviews = ({ username, name, phone, address, website, coordinates, r
             <div>
                 {ratings.map(info => {
                     return(
-                        <div class="recent-review-container">
+                        <div data-testid='review-1' className="recent-review-container">
                         <h2>{info.restaurant_name} <i class='bx bx-restaurant'></i></h2>
                         <h3> - {info.restaurant_address} <i class='bx bxs-map'></i></h3>
                         <h4><a href={info.restaurant_website} >Website <i class='bx bxs-navigation' ></i></a></h4>
                         
-                        <div class="star-ratings-container">
+                        <div className="star-ratings-container">
 
                         <div className="star-ratings-container">
 
