@@ -571,3 +571,6 @@ img.profile-pic {
   justify-content: left;
 }
 
+.image-preview-container {
+  justify-content: right;
+}

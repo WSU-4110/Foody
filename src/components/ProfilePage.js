@@ -1,6 +1,7 @@
 import Navigation from './Navigation'
 import React, { useState, useEffect } from 'react';
 import RecentReviews from './RecentReviews';
+import UserReview from './UserReview';
 import Footer from './Footer';
 
 
