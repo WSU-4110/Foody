@@ -19,7 +19,6 @@ const Login = ({background}) => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-
     //     // const userLoginInformation = {
     //     //     method: 'POST',
     //     //     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
@@ -28,7 +27,6 @@ const Login = ({background}) => {
     //     //         emailaddress: email,
     //     //         username: username,
     //     //         password: password })
-            
     //     // }
 
         const userLoginInformation = {
@@ -39,7 +37,6 @@ const Login = ({background}) => {
                 username: username,
                 password: password })
         }
-
         userLoginRequest(userLoginInformation);
     }
 
@@ -67,36 +64,24 @@ const Login = ({background}) => {
         <div className={background}>
             <div className="login-container">
                 <h1><i class='bx bxs-pizza'></i> Foody</h1>
-
                 <div>
                     <form className="" onSubmit={onSubmit}>
-                
                         {userLoggedIn ? <label></label>:<label className="invalid">Invalid Username or Password! Please try again!</label>}
                         <div className="login-form">
                             <input className="login-form-text-input" type="text" placeholder="Username" value={username} onChange={((e) => setUsername(e.target.value))}></input>
                             <input className="login-form-text-input" type="password" placeholder="Password" value={password} onChange={((e) => setPassword(e.target.value))}></input>
                             <input className="login-form-submit-button" type="submit" placeholder="Login"></input>
                         </div>
-                            
                     </form>
-
-
                     <div>
                         <h2>Don't have an account? </h2>
                         <h4 class="link"> <Link to="/components/Register.js" >Sign up here! </Link></h4>
                     </div>
                 </div>
-        
-              
-           
             </div>
-
-
             <div className="">
                     {LaptopScreen ?  <div></div> : <Footer />} 
             </div>
-            
-
         </div>
     )
 }
