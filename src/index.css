@@ -49,7 +49,6 @@ body {
 
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 /* * {
   box-sizing: border-box;
@@ -299,6 +298,8 @@ a:visited {
 
 .search-resturant-form {
   display: flex;
+  width: 50vw;
+  margin-left: 2rem;
 }
 
 .search-icon {
@@ -309,6 +310,7 @@ a:visited {
 
 .search-resturant-input {
   padding-right: 3rem;
+ 
 }
 
 .search-button {
@@ -343,6 +345,7 @@ border-radius: 1rem;
 
 .resturaunt-tab-container {
   padding: 4rem;
+  padding-bottom: 7rem;
   border-radius: 5px;
   width: 50%;
   margin-left: 2rem;
@@ -361,6 +364,68 @@ border-radius: 1rem;
   text-align: left;
 }
 
+/* Restaurant review start */
+.review-form-grid {
+  display: grid;
+   grid-template-columns: auto;
+   grid-template-rows: auto;
+
+  box-sizing: border-box;
+  width: 200px;
+  height: 270px;
+  margin-left: 20%;
+  margin-right: auto;
+
+  /* background: rgba(114, 186, 94, 0.05);
+  border: 2px dashed rgba(114, 186, 94, 0.35); */
+}
+/* grid element spaced in 1 row */
+.review-grid-one-row {
+  box-sizing: border-box;
+  width: 180px;
+  height: 25px;
+  /* background: rgba(255, 213, 70, 0.4);
+  border: 2px dashed rgba(236, 198, 48, 0.5); */
+}
+/* grid element spaced in 2 rows */
+.review-grid-two-row {
+  box-sizing: border-box;
+  width: 180px;
+  height: 50px;
+  /* background: rgba(255, 76, 70, 0.4);
+  border: 2px dashed rgba(236, 198, 48, 0.5); */
+}
+
+input[name='pricingValue']  {
+  width: 80px;
+}
+
+.hover-hide {
+  display: none;
+}
+
+.div-hover-text:hover + .hover-hide {
+  display: block;
+  color: red;
+  width: 250px;
+}
+
+/* Restaurant review end */
+
+.image-preview-container {
+  display: grid;
+   grid-template-columns: auto auto auto auto auto;
+   grid-template-rows: 100px;
+   grid-gap: 10px;
+
+  box-sizing: border-box;
+  width: auto;
+  height: 100px;
+
+  /* background: rgb(255, 0, 0);
+  border: 2px dashed rgb(55, 255, 0); */
+}
+
 .leaflet-container {
   height: 100vh;
   width: 35vw;
@@ -377,8 +442,168 @@ border-radius: 1rem;
 .search-result-title {
   font-size: larger;
   font-weight: bolder;
-  left: 0;
+  margin-left: 2rem;
   z-index: 0;
+  text-align: left;
+}
+
+.restaurant-page-container {
+  width: 60%;
+}
+
+
+.resturaunt-page-tab-container {
+  padding: 4rem;
+  padding-bottom: 7rem;
+  border-radius: 5px;
+  width: auto;
+  margin-left: 2rem;
+  /* margin: 0 auto; */
+  margin-top: 5rem;
+  display: flex;
+  border: solid 1px lightgrey;
+  justify-content: space-evenly;
+}
+
+.reviews-title {
+  text-align: center;
+  
+}
+
+.user-review-username{
+  text-align: left;
+  font-size: xx-large;
+  color: var(--first-color);
+  font-weight: bolder;
+ 
+}
+
+.user-review-container {
+  padding: 3rem;
+  padding-bottom: 2rem;
+  border-radius: 5px;
+  width: auto;
+  margin-left: 2rem;
+  /* margin: 0 auto; */
+  margin-top: 5rem;
+
+  border: solid 1px lightgrey;
+}
+
+.username-and-date {
+  display: flex;
+  
+}
+
+.review-date {
+  text-align: right;
+  text-align: left;
+  font-size: large;
+  color: var(--second-color);
+  font-weight: bolder;
+  margin-top: 0.5em;
+  padding-left: 3rem;
+}
+
+.like-dislike-buttons {
+   text-align: left;
+   font-size: xx-large;
+}
+
+.like-button {
+  padding-right: 1rem;
+}
+
+.like-button:hover{
+  color: green;
+}
+
+.dislike-button:hover {
+  color: red;
+}
+
+.rating-attribute-title {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+}
+
+.text-review {
+  font-size: large;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.restaurant-ratings {
+  color: var(--second-color);
+}
+
+.up-and-down-arrows {
+  color: var(--second-color);
+  font-size: xx-large;
+  margin: 1rem;
+}
+
+.up-arrow-sort:hover {
+  color: var(--third-color);
+}
+
+.down-arrow-sort:hover {
+  color: var(--third-color);
+}
+
+.up-arrow-sort-selected {
+  color: var(--third-color);
+}
+
+.down-arrow-sort-selected {
+  color: var(--third-color);
+}
+
+.sort-by-category {
+  display: inline-flex;
+}
+
+.search {
+  display: flex;
+}
+
+.category-options-dropdown {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.delete-button {
+  font-size: xx-large;
+  color: var(--first-color);
+  font-weight: bolder;
+  margin-left: 48rem;
+}
+
+.delete-button:hover {
+  color: red;
+}
+
+.random-button {
+  display: flex;
+  left: 0;
+  padding: 12px;
+  margin: 1rem 0rem 1rem 2rem;
+  background-color: var(--first-color);
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  border-radius: 1rem;
+}
+
+.random-button:hover {
+  background-color: var(--third-color);
 }
 
 .profile-page-main-container {
@@ -389,6 +614,7 @@ border-radius: 1rem;
 .profile-page-main-container h2 {
   clear: both;
 }
+
 .imgPreview {
   width:35%;
   height: 400px;
@@ -551,26 +777,4 @@ img.profile-pic {
   border-radius: 5px;
   clear: both;
   justify-content: center;
-}
-
-.rating {
-  padding: 0 2rem 0 2rem;
-}
-
-.rating h5 {
-  padding: 0;
-  margin: 0;
-}
-
-.text-review-container p {
-  text-align: left;
-  font-size: 1.5rem;
-}
-
-.review-history {
-  justify-content: left;
-}
-
-.image-preview-container {
-  justify-content: right;
 }

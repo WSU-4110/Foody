@@ -63,7 +63,7 @@ const RecentReviews = ({ username, name, phone, address, website, coordinates, r
 
                         <div className="star-ratings-container">
 
-                            <div className="rating-container">
+                            <div>
                                 <div className="rating-attribute-title">
                                     Deliciousness:
                                     <Star readOnly={true} defaultValue={info.deliciousness_score} />
