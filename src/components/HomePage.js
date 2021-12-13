@@ -134,7 +134,7 @@ const HomePage = () => {
                         coordinates={[42.3591, -83.0665]}
                         restaurant={restaurant}
                         />)
-                    : <div></div>
+                    : <div></div> 
                 }    
 
                 <button className="random-button" onClick={() => onClickRandomButton()} >Try a Random Restaurant?</button>
