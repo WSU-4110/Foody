@@ -25,22 +25,24 @@ const ResturantTab = ({name, phone, address, website, coordinates, restaurant}) 
   }
   
 
-  const restaurantRatingsRequest = async() => {
+    const restaurantRatingsRequest = async () => {
+        // console.log('request sent for ' + name);
       const res = await fetch(`http://localhost:80/api/index.php?action=ratings&restaurantName=${name}&restaurantAddress=${address}`, restaurantRequestInfo)
       const data = await res.json()
    
 
       if(data.response !== 'No Reviews For This Restaurant!') {
-          console.log(data);
           setRatings(data.response);
-          console.log(ratings);
-      }
+        }
+      else {
+          setRatings([]);
+    }
   }
 
  
     useEffect(() => {
-      restaurantRatingsRequest();
-    }, [restaurant])
+        restaurantRatingsRequest();
+    }, [name])
 
     const onRestaurantTabClicked = () => {
       history.push({

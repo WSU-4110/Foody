@@ -150,9 +150,9 @@ const HomePage = () => {
                 />)}
             </div>
            
-            <div className="footer-homepage">
+            {/* <div className="footer-homepage">
                  <Footer />
-            </div>
+            </div> */}
 
          </div>
     )
