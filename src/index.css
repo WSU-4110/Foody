@@ -794,3 +794,8 @@ img.profile-pic {
 .review-history {
   justify-content: left;
 }
+
+.image-preview-container {
+  justify-content: right;
+}
+
