@@ -6,42 +6,6 @@ import { Star } from 'react-star';
 const RecentReviews = ({ username, name, phone, address, website, coordinates, restaurant }) => {
     const [ratings, setRatings] = useState([]);
 
-    /*
-    const restaurantRequestInfo = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-    }
-
-    const restaurantRatingsRequest = async () => {
-        const res = await fetch(`http://localhost:80/api/index.php?action=ratings&restaurantName=${name}&restaurantAddress=${address}`, restaurantRequestInfo)
-        const data = await res.json()
-
-        if (data.response !== 'No Reviews For This Restaurant!') {
-            console.log(data);
-            setRatings(data.response);
-            console.log(ratings);
-        }
-    }
-
-
-    useEffect(() => {
-        restaurantRatingsRequest();
-    }, [restaurant])
-
-    const onRestaurantTabClicked = () => {
-        history.push({
-            pathname: "/components/RestaurantPage.js",
-            state: {
-                restaurantName: name,
-                restaurantPhone: phone,
-                restaurantAddress: address,
-                restaurantWebsite: website,
-                restaurantCoords: coordinates
-            }
-        });
-    };
-    */
-
     const restaurantRequestInfo = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
