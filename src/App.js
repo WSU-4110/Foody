@@ -6,6 +6,7 @@ import {Route, Link} from 'react-router-dom'
 import { useState } from 'react';
 import HomePage from './components/HomePage';
 import {useEffect} from 'react';
+import ProfilePage from './components/ProfilePage';
 import RestaurantPage from './components/RestaurantPage';
 
 function App() {
@@ -34,6 +35,7 @@ useEffect(() => {
         <Route exact path="/components/Register.js" component={() => <Register background={randomBackground} />} />
         <Route exact path="/components/HomePage.js" component={HomePage} />
         <Route exact path="/components/Footer.js" component={Footer} />
+        <Route exact path="/components/ProfilePage.js" component={ProfilePage} />
         <Route exact path="/components/RestaurantPage.js" component={RestaurantPage} />
 
         {/* <Login /> */}

@@ -40,7 +40,10 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 	} else if ($_GET['action'] == "ratings") {
 		$reviewController = new ReviewController();
 		echo $reviewController->getRestaurantRatings();
-	} else if ($_GET['action'] == "searchCategoryAsc") {
+	} else if ($_GET['action'] == "userreview") {
+		$reviewController = new ReviewController();
+		echo $reviewController->getUserReviews();
+	}  else if ($_GET['action'] == "searchCategoryAsc") {
 		$reviewController = new ReviewController();
 		echo $reviewController->getRestaurantsByCategoryHighest();
 	} else if($_GET['action'] == "searchCategoryDesc") {
@@ -49,6 +52,9 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 	} else if($_GET['action'] == "getImages") {
 		$reviewController = new ReviewController();
 		echo $reviewController->getReviewImage();
+	} else if($_GET['action'] == "getUserinfo") {
+		$userController = new userController();
+		echo $userController->getUserInfo();
 	}
 }
 
