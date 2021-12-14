@@ -1,9 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
 
-    const history = useHistory();
+    const history = useHistory()
 
     const onLogOut = () => {
         history.push('/')
@@ -14,7 +15,7 @@ const Navigation = () => {
         }
 
         logOutUserRequest(logOutUser)
-
+   
     }
 
 
@@ -25,25 +26,29 @@ const Navigation = () => {
 
     }
 
-
     return (
         <div>
             <nav className="navbar">
 
-            <h2 className="navbar-logo"><i class='bx bxs-pizza'></i> Foody</h2>
+            <h2 className="navbar-logo"><Link to="/components/HomePage.js"><i class='bx bxs-pizza'></i> Foody</Link></h2>
                 <ul className="navbar-list">
                     <li className="navbar-links">
-                        Profile
+                        <Link to="/components/ProfilePage.js">Profile</Link>
                     </li>
-
+            
                     <li className="navbar-links">
-                        Post a review!
+                        Post a review! 
                     </li>
                 </ul>
 
+                <form className="search-resturant-form">
+                    <input className="search-resturant-input" type="text" placeholder="Search for a resturant!"></input>
+                    <button className="search-button"><i class='bx bx-search-alt search-icon'></i></button>
+                </form>
+
                 <button onClick={onLogOut} className="logout-button">Logout</button>
             </nav>
-
+            
         </div>
     )
 }

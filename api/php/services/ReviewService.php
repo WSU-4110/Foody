@@ -99,6 +99,20 @@ class ReviewService {
         return $reviews;
     }
 
+    public function getUserReviews($username) {
+        $userId = $this->usersService->getUserId($username);
+
+        // $session = Session::getInstance();
+        // echo $session->__get('username');
+
+        // this should really check if restaurant is null or not
+        #TODO: refactoring getRestaurantId method in restaurantService
+
+        $reviews = $this->reviewDbGateway->getUserReviews($userId);
+
+        return $reviews;
+    }
+
     public function updateReviewLikes($username, $reviewId) {
         // $userIdArray = $this->usersService->getUserId($username);
         // $userId = $userIdArray['userId'];

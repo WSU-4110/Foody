@@ -61,4 +61,8 @@ class UsersService {
 		}
 	}
 
+	public function getUserInfo (string $username) {
+		$user = $this->usersDbGateway->getUserLoginInformation($username);
+		return $user;
+		}
 }
